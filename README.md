@@ -57,8 +57,9 @@ This configuration enforces strict development standards. Here's what you need t
 - **Quality over speed** - Always
 - **Type safety first** - Minimal `any` types, no shortcuts
 - **Test-driven development** - 80%+ coverage required
-- **Incremental development** - Small, testable parts
+- **Incremental development** - Small, testable parts with dependency-aware planning
 - **KISS principle** - Simple, readable solutions
+- **Ground-up building** - Build dependencies before dependents to minimize TODOs
 
 ### Quality Gates
 Every feature must pass these checks:
@@ -66,8 +67,66 @@ Every feature must pass these checks:
 - ✅ All tests passing (no deleting tests to fix builds)
 - ✅ 80%+ test coverage
 - ✅ No disabled warnings or deprecated APIs
+- ✅ Minimal TODOs with proper justification and ticket references
+- ✅ Dependencies built before dependents (ground-up approach)
 - ✅ Code reviewed by appropriate agent
 - ✅ Working codebase state
+
+## 🏗️ Dependency-Aware Development Strategy
+
+### Recommended Build Order
+To minimize TODOs and build stable foundations:
+
+1. **Data Models** - Types, interfaces, schemas (no dependencies)
+2. **Utilities** - Helper functions, constants, pure functions
+3. **Core Services** - Business logic, validation, domain services
+4. **Business Logic** - Feature-specific implementations
+5. **UI Components** - User interface that consumes business logic
+6. **Integrations** - External API connections and third-party services
+
+### Planning Questions
+Before starting any feature, ask:
+- What does this component depend on?
+- What dependencies can I build first?
+- How can I minimize TODOs in this implementation?
+- Which foundational pieces are missing?
+
+### Example: User Registration Feature
+```typescript
+// ❌ Wrong order - building UI first
+function UserRegistrationForm() {
+  // TODO: Add validation once validation service exists
+  // TODO: Add user creation once user service exists
+  // TODO: Add error handling once error service exists
+  return <form>...</form>;
+}
+
+// ✅ Right order - dependencies first
+// 1. Data models
+interface User { id: string; email: string; name: string; }
+interface RegistrationData { email: string; name: string; password: string; }
+
+// 2. Utilities
+function validateEmail(email: string): boolean { /* ... */ }
+function hashPassword(password: string): string { /* ... */ }
+
+// 3. Core services
+function validateRegistration(data: RegistrationData): ValidationResult { /* ... */ }
+function createUser(data: RegistrationData): Promise<User> { /* ... */ }
+
+// 4. UI components (built on stable foundation)
+function UserRegistrationForm() {
+  // All dependencies exist - no TODOs needed!
+  const handleSubmit = async (data: RegistrationData) => {
+    const validation = validateRegistration(data);
+    if (validation.isValid) {
+      return await createUser(data);
+    }
+    // Handle validation errors
+  };
+  return <form onSubmit={handleSubmit}>...</form>;
+}
+```
 
 ## 📚 Development Policy Examples
 
@@ -222,43 +281,40 @@ Buffer.from('data');
 fs.access('/path', callback); // Or fs.promises.access
 ```
 
-### Incremental Development
+### TODO Comments and Exceptions
 
-#### ❌ **Big Bang Approach**
+#### ❌ **Invalid TODO Usage**
 ```typescript
-// Trying to implement entire feature at once
-function complexUserManagement() {
-  // 200 lines of code handling:
-  // - User creation
-  // - Authentication
-  // - Authorization
-  // - Profile management
-  // - Data validation
-  // - Error handling
-  // All in one function
-}
+// Lazy TODO without context
+// TODO: fix this
+const result = hackyImplementation(); // ❌ No ticket, no context
+
+// TODO without timeline or dependency justification
+// TODO: make this better
+const messyFunction = () => { /* ... */ }; // ❌ Vague, no plan
+
+// TODO to avoid doing work
+// TODO: add tests later
+function importantFeature() { /* no tests written */ } // ❌ Shortcut
 ```
 
-#### ✅ **Small, Testable Parts**
+#### ✅ **Valid TODO Usage**
 ```typescript
-// Step 1: Basic user creation
-function createUser(userData: UserInput): User {
-  return new User(userData);
-}
+// Valid TODO for missing feature dependency
+// TODO: Replace with UserService.validateEmail() once auth module is complete (TICKET-456)
+const isValidEmail = email.includes('@'); // Temporary validation
 
-// Step 2: Add validation (separate iteration)
-function validateUserData(userData: UserInput): ValidationResult {
-  // Simple validation logic
-}
+// Valid TODO for dependent feature implementation
+// TODO: Implement proper caching once Redis service is deployed (INFRA-789)
+const getCachedData = (key: string) => {
+  return localStorage.getItem(key); // Temporary browser storage
+};
 
-// Step 3: Combine (separate iteration)
-function createValidatedUser(userData: UserInput): User | ValidationError {
-  const validation = validateUserData(userData);
-  if (validation.isValid) {
-    return createUser(userData);
-  }
-  return validation.error;
-}
+// Valid TODO for external dependency
+// TODO: Use PaymentProcessor.charge() once payment service API is finalized (PAY-123)
+const processPayment = async (amount: number) => {
+  return { success: true, id: 'temp-' + Date.now() }; // Mock implementation
+};
 ```
 
 ### Agent Selection Examples
@@ -436,7 +492,7 @@ describe('processPayment', () => {
 ### Project Defaults
 - **TypeScript**: Strict mode, minimal `any` tolerance, zero warning tolerance
 - **Testing**: Required, 80% minimum coverage, Jest/Vitest preferred
-- **Development**: Incremental approach with validation
+- **Development**: Dependency-aware incremental approach with validation
 
 ## 📖 Remember
 
@@ -445,6 +501,7 @@ describe('processPayment', () => {
 - **Simple is better than clever**
 - **Tests are documentation** - keep them meaningful
 - **Use the right tool for the job** - specialized agents exist for a reason
+- **Build dependencies before dependents** - minimize TODOs
 
 ## 🤝 Contributing
 
