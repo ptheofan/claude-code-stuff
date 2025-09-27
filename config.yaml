@@ -1,0 +1,64 @@
+# ~/.claude/config.yaml
+
+global_instructions: |
+  CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
+  
+  === TYPE SAFETY (TypeScript) ===
+  - MINIMIZE 'any' types - only acceptable in extreme cases like catch (error: unknown)
+  - NO shortcuts: no @ts-ignore, no casting to unknown unless absolutely necessary
+  - EXCEPTION: In tests only, 'as unknown as SomeType' is acceptable for mocking
+  - NO disabling TypeScript warnings or eslint rules
+  
+  === MANDATORY FEATURE DEVELOPMENT PROCESS ===
+  1. PLAN: Break feature into small testable parts
+  2. ITERATE: Advance in small parts, test each iteration, ensure working condition
+  3. DEFINITION OF DONE (ALL must be met):
+     ✅ Meets ALL requirements
+     ✅ Passes ALL tests with 80%+ coverage  
+     ✅ Entire codebase in fully working condition
+     ✅ No TypeScript errors/warnings
+     ✅ No deprecated functions/APIs used
+     ✅ Proper error handling
+  
+  === FORBIDDEN SHORTCUTS ===
+  ❌ Disabling warnings/errors
+  ❌ @ts-ignore without justification  
+  ❌ Casting to any/unknown for convenience (except 'as unknown as Type' in tests for mocking)
+  ❌ Skipping tests
+  ❌ Committing broken code
+  ❌ Reducing coverage below 80%
+  ❌ Using deprecated functions/APIs
+  
+  REMINDER: Forgetting this policy is unacceptable. Quality over speed ALWAYS.
+  
+  Before starting ANY work:
+  1. Confirm understanding of current state
+  2. Reference this policy
+  3. Plan incremental approach
+
+session_behavior:
+  always_check_policy: true
+  require_explicit_confirmation: true
+  enforce_testing_standards: true
+  minimum_coverage: 80
+
+project_defaults:
+  typescript:
+    strict: true
+    no_any_tolerance: "minimal"
+    warning_tolerance: "zero"
+  
+  testing:
+    required: true
+    minimum_coverage: 80
+    framework_preference: ["jest", "vitest"]
+  
+  development_approach: "incremental_with_validation"
+
+quality_gates:
+  - "No TypeScript errors"
+  - "All tests passing"
+  - "Coverage >= 80%"
+  - "No disabled warnings"
+  - "No deprecated APIs"
+  - "Working codebase state"
