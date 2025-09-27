@@ -1,89 +1,99 @@
-# ~/.claude/config.yaml
+# Claude Code Global Development Policy
 
-global_instructions: |
-  CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
-  
-  === TYPE SAFETY (TypeScript) ===
-  - MINIMIZE 'any' types - only acceptable in extreme cases like catch (error: unknown)
-  - NO shortcuts: no @ts-ignore, no casting to unknown unless absolutely necessary
-  - EXCEPTION: In tests only, 'as unknown as SomeType' is acceptable for mocking
-  - NO disabling TypeScript warnings or eslint rules
-  
-  === MANDATORY FEATURE DEVELOPMENT PROCESS ===
-  1. PLAN: Break feature into small testable parts
-  2. ITERATE: Advance in small parts, test each iteration, ensure working condition
-  3. DEFINITION OF DONE (ALL must be met):
-     ✅ Meets ALL requirements
-     ✅ ALL tests pass (no deleting tests to fix builds)
-     ✅ 80%+ coverage with proper unit/integration test mix
-     ✅ Entire codebase in fully working condition
-     ✅ No TypeScript errors/warnings
-     ✅ No deprecated functions/APIs used
-     ✅ Follows KISS principle (simple, readable solutions)
-     ✅ Minimal, justified mocking (only external dependencies)
-     ✅ Proper error handling
-  
-  === FORBIDDEN SHORTCUTS ===
-  ❌ Disabling warnings/errors
-  ❌ @ts-ignore without justification  
-  ❌ Casting to any/unknown for convenience (except 'as unknown as Type' in tests for mocking)
-  ❌ Skipping tests
-  ❌ Deleting tests to avoid fixing failures (removing redundant tests OK with justification)
-  ❌ Over-mocking (mock only external dependencies)
-  ❌ Committing broken code
-  ❌ Reducing coverage below 80%
-  ❌ Using deprecated functions/APIs
-  
-  REMINDER: Forgetting this policy is unacceptable. Quality over speed ALWAYS.
-  
-  Before starting ANY work:
-  1. Confirm understanding of current state
-  2. Reference this policy
-  3. Select appropriate agent(s) for the task:
-     - typescript-pro for TS development
-     - code-reviewer for quality checks
-     - test-automator for testing
-     - security-engineer for security
-     - performance-engineer for optimization
-     - multi-agent-coordinator for complex workflows
-  4. Plan incremental approach
+## CRITICAL: This policy is MANDATORY for ALL projects and sessions
 
-session_behavior:
-  always_check_policy: true
-  require_explicit_confirmation: true
-  enforce_testing_standards: true
-  agent_selection_required: true
-  prefer_specialized_agents: true
-  minimum_coverage: 80
+### TypeScript Type Safety Requirements
+- **MINIMIZE `any` types**: Only acceptable in extreme cases like `catch (error: unknown)`
+- **Strict typing**: Use proper interfaces, types, and generics instead of `any`
+- **Type assertions**: Avoid `as unknown` or type casting unless absolutely necessary
+  - **EXCEPTION**: In tests only, `as unknown as SomeType` is acceptable for mocking purposes
+- **Warning compliance**: Do NOT disable TypeScript warnings or eslint rules as shortcuts
 
-project_defaults:
-  typescript:
-    strict: true
-    no_any_tolerance: "minimal"
-    warning_tolerance: "zero"
-  
-  testing:
-    required: true
-    minimum_coverage: 80
-    framework_preference: ["jest", "vitest"]
-  
-  development_approach: "incremental_with_validation"
+### Feature Development Process (MANDATORY)
+Every feature MUST follow this exact process:
 
-agent_selection_guidelines:
-  code_quality: ["code-reviewer", "architect-reviewer", "refactoring-specialist"]
-  testing: ["qa-expert", "test-automator", "accessibility-tester", "performance-engineer"]
-  typescript: ["typescript-pro", "react-specialist", "nextjs-developer"]
-  infrastructure: ["devops-engineer", "cloud-architect", "kubernetes-specialist"]
-  security: ["security-engineer", "security-auditor", "penetration-tester"]
-  debugging: ["debugger", "error-detective", "error-coordinator"]
-  orchestration: ["multi-agent-coordinator", "workflow-orchestrator", "task-distributor"]
-  documentation: ["documentation-engineer", "technical-writer", "api-documenter"]
+1. **Planning Phase**
+   - Define clear requirements and acceptance criteria
+   - Break feature into small, testable components
+   - Identify dependencies and potential risks
 
-quality_gates:
-  - "No TypeScript errors"
-  - "All tests passing"
-  - "Coverage >= 80%"
-  - "No disabled warnings"
-  - "No deprecated APIs"
-  - "Code reviewed by appropriate agent"
-  - "Working codebase state"
+2. **Iterative Development**
+   - **Dependency-Aware Planning**: Always prioritize components with fewer dependencies
+     - Build foundational layers first (data models, utilities, core services)
+     - Implement dependency-free features before dependent ones
+     - Minimize TODOs by building from ground up
+   - Advance in small, testable parts (maximum 1-2 hours of work per iteration)
+   - Each iteration must be:
+     - Compilable without errors
+     - Testable in isolation
+     - Demonstrably working
+   - Test and validate each part before proceeding
+   - Fix any issues immediately before moving forward
+
+3. **Definition of Done**
+   A feature is complete ONLY when ALL criteria are met:
+   - ✅ Meets ALL stated requirements
+   - ✅ Passes ALL tests with minimum 80% code coverage
+   - ✅ Entire codebase is in fully working condition
+   - ✅ No TypeScript errors or warnings
+   - ✅ Code follows established patterns and conventions
+   - ✅ Proper error handling implemented
+   - ✅ No deprecated functions or APIs used
+   - ✅ Documentation updated (if applicable)
+
+### Code Quality Standards
+- **KISS Principle**: Keep It Stupidly Simple - prefer readable, straightforward solutions over clever complexity
+- **Testing Discipline**: 
+  - ALL tests must pass - no exceptions
+  - NEVER delete tests to avoid fixing failures - fix the code or fix the test properly
+  - OK to remove redundant or genuinely unnecessary tests (with justification)
+  - Mock only what truly needs mocking (external APIs, file systems, databases)
+  - Understand the difference between unit tests (isolated) and integration tests (system interactions)
+- **Coverage**: Maintain minimum 80% test coverage for new features
+- **Error Handling**: Implement proper error handling, no silent failures
+- **Documentation**: Add JSDoc comments for public APIs and complex logic
+- **Consistency**: Follow existing project patterns and conventions
+- **No Deprecated Functions**: Never use deprecated APIs, functions, or methods - always use current alternatives
+
+### Forbidden Shortcuts
+- ❌ Disabling TypeScript warnings or errors
+- ❌ Using `@ts-ignore` or `@ts-expect-error` without justification
+- ❌ Casting to `unknown` or `any` for convenience (except `as unknown as Type` in tests for mocking)
+- ❌ Skipping tests to "save time"
+- ❌ **Deleting tests to avoid fixing failures** (removing redundant tests is acceptable with justification)
+- ❌ **Over-mocking in unit tests** (mock only external dependencies, not internal logic)
+- ❌ Committing broken or non-compiling code
+- ❌ Reducing test coverage below 80%
+- ❌ Using deprecated functions, APIs, or methods
+
+### Session Continuity
+- ALWAYS reference this policy at the start of each session
+- **Agent Selection**: Always analyze the task and select the most appropriate agent(s) for the job
+  - **Code Quality**: Use `code-reviewer`, `architect-reviewer`, `refactoring-specialist` for reviews
+  - **Testing**: Use `qa-expert`, `test-automator`, `accessibility-tester` for comprehensive testing
+  - **Language-Specific**: Use specialized agents like `typescript-pro`, `react-specialist`, `python-pro`
+  - **Infrastructure**: Use `devops-engineer`, `cloud-architect`, `security-engineer` for deployment
+  - **Debugging**: Use `debugger`, `error-detective`, `performance-engineer` for issue resolution
+  - **Meta-Orchestration**: Use `multi-agent-coordinator`, `workflow-orchestrator` for complex workflows
+  - Combine specialized agents when tasks span multiple domains
+  - Prefer specialized agents over general approaches for better results
+- Confirm understanding of current project state before proceeding
+- Never assume previous context - explicitly verify requirements
+- Document any deviations from this policy with clear justification
+
+### Emergency Exceptions
+If absolutely necessary to deviate from this policy:
+1. Explicitly state the deviation and reason
+2. Get explicit confirmation from the developer
+3. Create a technical debt item to address later
+4. Document the exception in code comments
+
+**Acceptable TODO Comments**: When a required feature dependency hasn't been implemented yet:
+```typescript
+// TODO: Replace with UserService.validateEmail() once auth module is complete (TICKET-123)
+const isValidEmail = email.includes('@'); // Temporary validation
+```
+
+---
+
+**REMINDER: Forgetting or ignoring this policy is unacceptable. Always prioritize code quality, testing, and incremental progress over speed.**
