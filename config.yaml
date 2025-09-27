@@ -18,6 +18,7 @@ global_instructions: |
      ✅ Entire codebase in fully working condition
      ✅ No TypeScript errors/warnings
      ✅ No deprecated functions/APIs used
+     ✅ Follows KISS principle (simple, readable solutions)
      ✅ Proper error handling
   
   === FORBIDDEN SHORTCUTS ===
@@ -34,12 +35,21 @@ global_instructions: |
   Before starting ANY work:
   1. Confirm understanding of current state
   2. Reference this policy
-  3. Plan incremental approach
+  3. Select appropriate agent(s) for the task:
+     - typescript-pro for TS development
+     - code-reviewer for quality checks
+     - test-automator for testing
+     - security-engineer for security
+     - performance-engineer for optimization
+     - multi-agent-coordinator for complex workflows
+  4. Plan incremental approach
 
 session_behavior:
   always_check_policy: true
   require_explicit_confirmation: true
   enforce_testing_standards: true
+  agent_selection_required: true
+  prefer_specialized_agents: true
   minimum_coverage: 80
 
 project_defaults:
@@ -55,10 +65,21 @@ project_defaults:
   
   development_approach: "incremental_with_validation"
 
+agent_selection_guidelines:
+  code_quality: ["code-reviewer", "architect-reviewer", "refactoring-specialist"]
+  testing: ["qa-expert", "test-automator", "accessibility-tester", "performance-engineer"]
+  typescript: ["typescript-pro", "react-specialist", "nextjs-developer"]
+  infrastructure: ["devops-engineer", "cloud-architect", "kubernetes-specialist"]
+  security: ["security-engineer", "security-auditor", "penetration-tester"]
+  debugging: ["debugger", "error-detective", "error-coordinator"]
+  orchestration: ["multi-agent-coordinator", "workflow-orchestrator", "task-distributor"]
+  documentation: ["documentation-engineer", "technical-writer", "api-documenter"]
+
 quality_gates:
   - "No TypeScript errors"
   - "All tests passing"
   - "Coverage >= 80%"
   - "No disabled warnings"
   - "No deprecated APIs"
+  - "Code reviewed by appropriate agent"
   - "Working codebase state"
