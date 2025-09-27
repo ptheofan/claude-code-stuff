@@ -461,6 +461,156 @@ describe('processPayment', () => {
 });
 ```
 
+## 🎯 Custom Commands for Business Requirements Analysis
+
+This configuration includes specialized custom commands designed for comprehensive business requirements analysis and validation. These commands leverage multiple agents to ensure thorough analysis from different perspectives.
+
+### Available Commands
+
+#### `requirements` - Comprehensive Business Requirements Analysis
+**Purpose**: Multi-agent orchestrated analysis of business requirements for MVP development
+
+**Usage**: `requirements: {your-requirements-here}`
+
+**What it does**:
+- Orchestrates 5 specialized agents for comprehensive analysis
+- Analyzes completeness, clarity, and feasibility
+- Evaluates business value and scope alignment
+- Identifies UX gaps and usability considerations
+- Checks compliance and regulatory requirements
+- Ensures clear documentation and actionable requirements
+
+**Output includes**:
+- Analysis summary with key findings
+- Gap identification with specific missing elements
+- Enhanced requirements with acceptance criteria
+- Recommended build order (dependencies first)
+- Next steps and priorities
+
+#### `req-gaps` - Requirements Gap Analysis
+**Purpose**: Identify missing elements and gaps in business requirements
+
+**Usage**: `req-gaps: {your-requirements-here}`
+
+**What it analyzes**:
+- Functional requirements (what the system should do)
+- Non-functional requirements (performance, security, usability, scalability)
+- Business rules and constraints
+- User personas and detailed use cases
+- Integration requirements and external dependencies
+- Data requirements (storage, validation, migration)
+- Compliance and regulatory needs
+- Success metrics and KPIs
+- Error handling and edge cases
+- Authentication and authorization needs
+- API requirements and third-party integrations
+- Deployment and infrastructure considerations
+
+**Prioritization**:
+- Impact on MVP functionality
+- Dependencies (foundational vs dependent features)
+- Risk level if left unaddressed
+
+#### `req-validate` - Requirements Validation
+**Purpose**: Validate requirements completeness and quality against development standards
+
+**Usage**: `req-validate: {your-requirements-here}`
+
+**Validation criteria**:
+- **Completeness**: Clear, testable acceptance criteria (80%+ test coverage standard)
+- **Quality**: Testable, verifiable, unambiguous requirements
+- **Development alignment**: Features breakable into small, testable increments
+- **TypeScript-friendly**: Data structures defined for type safety
+- **KISS principle**: Simple, clear requirements
+- **No deprecated approaches**: Modern technologies and patterns
+
+#### `req-refine` - Requirements Refinement
+**Purpose**: Refine and enhance existing requirements with detailed specifications
+
+**Usage**: `req-refine: {your-requirements-here}`
+
+**Enhancement areas**:
+- Convert high-level requirements into detailed user stories
+- Add specific acceptance criteria for each story
+- Define data models and interfaces (TypeScript-ready)
+- Specify error conditions and handling
+- Add non-functional requirements (performance, security)
+- Include API specifications where relevant
+- Define testing scenarios and edge cases
+
+**Output format**:
+- Refined user stories with acceptance criteria
+- Technical specifications and data models
+- Testing requirements and scenarios
+- Build order recommendations
+
+#### `req-tech` - Technical Feasibility Analysis
+**Purpose**: Evaluate technical feasibility and implementation approach
+
+**Usage**: `req-tech: {your-requirements-here}`
+
+**Technical analysis**:
+- Architecture implications and design patterns
+- Technology stack recommendations
+- Database design considerations
+- API design and integration requirements
+- Security and compliance implications
+- Performance and scalability considerations
+- Testing strategy and complexity
+
+**Development policy alignment**:
+- TypeScript implementation approach
+- Dependency management and build order
+- Testing coverage strategy (unit vs integration)
+- Error handling architecture
+- Code quality and maintainability factors
+
+**Risk assessment**:
+- Technical complexity estimation
+- Potential integration challenges
+- Performance bottlenecks
+- Security vulnerabilities
+- Maintenance and scalability concerns
+
+### Usage Examples
+
+#### Example 1: MVP Requirements Analysis
+```
+requirements: Build a user authentication system for our SaaS platform. Users should be able to register, login, reset passwords, and manage their profiles. The system needs to integrate with our existing user database and support SSO with Google and Microsoft.
+```
+
+#### Example 2: Gap Analysis
+```
+req-gaps: We need a payment processing system that handles credit cards, PayPal, and bank transfers. It should support subscriptions and one-time payments with proper security.
+```
+
+#### Example 3: Requirements Validation
+```
+req-validate: Users can upload files up to 10MB, files are stored securely, and users can download their files. The system should handle concurrent uploads from multiple users.
+```
+
+#### Example 4: Technical Feasibility
+```
+req-tech: Implement real-time chat functionality with file sharing, message encryption, and support for 1000+ concurrent users across multiple channels.
+```
+
+### Best Practices for Using Custom Commands
+
+1. **Start with `requirements`** for comprehensive initial analysis
+2. **Use `req-gaps`** to identify missing elements after initial analysis
+3. **Apply `req-validate`** to ensure requirements meet development standards
+4. **Use `req-refine`** to add detailed specifications and acceptance criteria
+5. **Run `req-tech`** to evaluate technical feasibility and implementation approach
+
+### Integration with Development Policy
+
+All custom commands are designed to align with the development policy:
+- **Dependency-aware planning**: Commands consider build order and dependencies
+- **TypeScript-first**: Requirements include type-safe data structures
+- **Testing standards**: 80%+ coverage requirements built into validation
+- **KISS principle**: Simple, clear requirements over complex specifications
+- **Quality gates**: All requirements must pass quality validation
+
 ## 🤖 Agent Selection Guidelines
 
 ### By Task Type
@@ -472,11 +622,13 @@ describe('processPayment', () => {
 - **Debugging**: `debugger`, `error-detective`, `error-coordinator`
 - **Orchestration**: `multi-agent-coordinator`, `workflow-orchestrator`, `task-distributor`
 - **Documentation**: `documentation-engineer`, `technical-writer`, `api-documenter`
+- **Business Analysis**: `business-analyst`, `product-manager`, `ux-researcher`, `legal-advisor`
 
 ### Best Practices
 - Use specialized agents for domain-specific tasks
 - Coordinate multiple agents for complex workflows
 - Always select appropriate agent before starting work
+- Use custom commands for comprehensive requirements analysis
 - Reference agent guidelines in `config.yaml`
 
 ## 🔧 Configuration Details
