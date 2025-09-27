@@ -14,11 +14,13 @@ global_instructions: |
   2. ITERATE: Advance in small parts, test each iteration, ensure working condition
   3. DEFINITION OF DONE (ALL must be met):
      ✅ Meets ALL requirements
-     ✅ Passes ALL tests with 80%+ coverage  
+     ✅ ALL tests pass (no deleting tests to fix builds)
+     ✅ 80%+ coverage with proper unit/integration test mix
      ✅ Entire codebase in fully working condition
      ✅ No TypeScript errors/warnings
      ✅ No deprecated functions/APIs used
      ✅ Follows KISS principle (simple, readable solutions)
+     ✅ Minimal, justified mocking (only external dependencies)
      ✅ Proper error handling
   
   === FORBIDDEN SHORTCUTS ===
@@ -26,6 +28,8 @@ global_instructions: |
   ❌ @ts-ignore without justification  
   ❌ Casting to any/unknown for convenience (except 'as unknown as Type' in tests for mocking)
   ❌ Skipping tests
+  ❌ Deleting tests to avoid fixing failures (removing redundant tests OK with justification)
+  ❌ Over-mocking (mock only external dependencies)
   ❌ Committing broken code
   ❌ Reducing coverage below 80%
   ❌ Using deprecated functions/APIs
