@@ -458,7 +458,13 @@ This configuration is designed for professional development teams. When contribu
 
 ## 📄 License
 
-Feel free to use this configuration for your projects. A reference would be nice but not required. Use it at your responsibility. See the LICENSE file for details.
+### Third-Party Components
+**Important**: Parts of this repository are copied from other repositories and should be used according to their original licenses:
+
+- **Agent configurations** from [awesome-claude-code-subagents](https://github.com/VoltAgent/awesome-claude-code-subagents) - Please check their LICENSE file for usage terms
+- **Any other copied content** - Always verify and comply with the original repository's license
+
+When using this configuration, you are responsible for ensuring compliance with all applicable licenses from the source repositories.
 
 ## 🔗 Resources
 
