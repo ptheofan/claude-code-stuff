@@ -2,6 +2,21 @@
 
 A comprehensive Claude Code setup with strict development policies, specialized agents, and quality enforcement. This repository contains configuration files and deployment scripts to set up a professional development environment with Claude Code.
 
+## 📑 Table of Contents
+
+- [🚀 Quick Start](#-quick-start)
+- [📋 What's Included](#-whats-included)
+- [🎯 Development Policy](#-development-policy)
+- [🏗️ Dependency-Aware Development Strategy](#️-dependency-aware-development-strategy)
+- [📚 Development Policy Examples](#-development-policy-examples)
+- [🎯 Custom Commands for Business Requirements Analysis](#-custom-commands-for-business-requirements-analysis)
+- [🤖 Agent Selection Guidelines](#-agent-selection-guidelines)
+- [🔧 Configuration Details](#-configuration-details)
+- [📖 Remember](#-remember)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+- [🔗 Resources](#-resources)
+
 ## 🚀 Quick Start
 
 ### Installation
