@@ -63,6 +63,7 @@ cd claude-code-stuff
 - **Business & Product** (08-business-product/) - PM, UX, legal, marketing
 - **Meta Orchestration** (09-meta-orchestration/) - Multi-agent coordination, workflow
 - **Research & Analysis** (10-research-analysis/) - Market research, competitive analysis
+- **NestJS Specialists** (nestjs/) - CQRS, EventEmitter2, Sagas for advanced NestJS patterns
 
 ## 🎯 Development Policy
 
@@ -632,6 +633,7 @@ All custom commands are designed to align with the development policy:
 - **Code Quality**: `code-reviewer`, `architect-reviewer`, `refactoring-specialist`
 - **Testing**: `qa-expert`, `test-automator`, `accessibility-tester`, `performance-engineer`
 - **TypeScript**: `typescript-pro`, `react-specialist`, `nextjs-developer`
+- **NestJS**: `nestjs-cqrs-expert`, `nestjs-eventemitter2-expert`, `nestjs-sagas-expert`
 - **Infrastructure**: `devops-engineer`, `cloud-architect`, `kubernetes-specialist`
 - **Security**: `security-engineer`, `security-auditor`, `penetration-tester`
 - **Debugging**: `debugger`, `error-detective`, `error-coordinator`
