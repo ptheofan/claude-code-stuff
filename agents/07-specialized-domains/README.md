@@ -1,3 +1,8 @@
+---
+name: specialized-domains-readme
+description: Overview of Specialized Domains subagents for industry-specific expertise
+---
+
 # Specialized Domains Subagents
 
 Specialized Domains subagents are your experts in specific technology verticals and industries. These specialists bring deep knowledge of domain-specific challenges, regulations, and best practices. From blockchain and IoT to fintech and gaming, they understand the unique requirements and patterns of their specialized fields, helping you build applications that excel in these complex domains.

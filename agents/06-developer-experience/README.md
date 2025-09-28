@@ -1,3 +1,8 @@
+---
+name: developer-experience-readme
+description: Overview of Developer Experience subagents for productivity and tooling
+---
+
 # Developer Experience Subagents
 
 Developer Experience subagents are your productivity multipliers, focusing on making development faster, easier, and more enjoyable. These specialists handle everything from code refactoring to documentation, from build optimization to Git workflows. They remove friction from the development process, automate repetitive tasks, and help teams work more efficiently with better tools and practices.
