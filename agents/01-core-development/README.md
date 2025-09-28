@@ -1,3 +1,8 @@
+---
+name: core-development-readme
+description: Overview of Core Development subagents for building modern applications
+---
+
 # Core Development Subagents
 
 Core Development subagents are your essential toolkit for building modern applications from the ground up. These specialized agents cover the entire development spectrum - from backend services to frontend interfaces, from mobile apps to desktop applications, and from simple APIs to complex distributed systems.

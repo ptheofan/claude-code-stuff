@@ -1,8 +1,13 @@
+---
+name: quality-security-readme
+description: Overview of Quality & Security subagents for code excellence and system protection
+---
+
 # Quality & Security Subagents
 
 Quality & Security subagents are your guardians of code excellence and system protection. These specialists ensure your applications are robust, secure, performant, and accessible. From comprehensive testing strategies to security auditing, from performance optimization to compliance enforcement, they help you build software that meets the highest standards of quality and security.
 
-## <¯ When to Use Quality & Security Subagents
+## <ï¿½ When to Use Quality & Security Subagents
 
 Use these subagents when you need to:
 - **Implement comprehensive testing** strategies and automation
@@ -14,7 +19,7 @@ Use these subagents when you need to:
 - **Achieve compliance** with regulations
 - **Test system resilience** through chaos engineering
 
-## =Ë Available Subagents
+## =ï¿½ Available Subagents
 
 ### [**accessibility-tester**](accessibility-tester.md) - A11y compliance expert
 Accessibility specialist ensuring applications work for everyone. Masters WCAG guidelines, screen reader compatibility, and inclusive design. Makes applications accessible without compromising functionality.
@@ -76,7 +81,7 @@ Automation specialist building robust test frameworks. Expert in various testing
 
 **Use when:** Building test frameworks, automating test cases, integrating tests with CI/CD, improving test reliability, or scaling test automation.
 
-## =€ Quick Selection Guide
+## =ï¿½ Quick Selection Guide
 
 | If you need to... | Use this subagent |
 |-------------------|-------------------|
@@ -93,7 +98,7 @@ Automation specialist building robust test frameworks. Expert in various testing
 | Audit security | **security-auditor** |
 | Build test frameworks | **test-automator** |
 
-## =¡ Common Quality Patterns
+## =ï¿½ Common Quality Patterns
 
 **Comprehensive Testing:**
 - **qa-expert** for test strategy
@@ -119,7 +124,7 @@ Automation specialist building robust test frameworks. Expert in various testing
 - **qa-expert** for quality processes
 - **test-automator** for test coverage
 
-## <¬ Getting Started
+## <ï¿½ Getting Started
 
 1. **Identify quality concerns** in your application
 2. **Choose appropriate specialists** for your needs
@@ -127,7 +132,7 @@ Automation specialist building robust test frameworks. Expert in various testing
 4. **Share relevant code and logs** for analysis
 5. **Implement recommended improvements** systematically
 
-## =Ú Best Practices
+## =ï¿½ Best Practices
 
 - **Shift left:** Catch issues early in development
 - **Automate repetitively:** Manual testing doesn't scale

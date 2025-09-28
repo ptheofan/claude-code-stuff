@@ -1,3 +1,8 @@
+---
+name: language-specialists-readme
+description: Overview of Language Specialists subagents for specific programming languages
+---
+
 # Language Specialists Subagents
 
 Language Specialists are your expert guides for specific programming languages and their ecosystems. These subagents bring deep knowledge of language idioms, best practices, performance optimization techniques, and framework expertise. Whether you're working with modern web frameworks, system programming languages, or enterprise platforms, these specialists ensure you're writing idiomatic, efficient, and maintainable code.

@@ -1,8 +1,13 @@
+---
+name: research-analysis-readme
+description: Overview of Research & Analysis subagents for information gathering and analysis
+---
+
 # Research & Analysis Subagents
 
 Research & Analysis subagents are your investigative powerhouses, specializing in finding, analyzing, and synthesizing information from diverse sources. These experts excel at deep research, competitive intelligence, market analysis, and trend identification. They transform raw information into actionable insights, helping you make informed decisions based on comprehensive analysis and data-driven research.
 
-## <¯ When to Use Research & Analysis Subagents
+## <ï¿½ When to Use Research & Analysis Subagents
 
 Use these subagents when you need to:
 - **Conduct comprehensive research** on any topic
@@ -14,7 +19,7 @@ Use these subagents when you need to:
 - **Synthesize complex information** into clear findings
 - **Make data-driven decisions** with confidence
 
-## =Ë Available Subagents
+## =ï¿½ Available Subagents
 
 ### [**research-analyst**](research-analyst.md) - Comprehensive research specialist
 Research expert conducting thorough investigations across domains. Masters research methodologies, source validation, and insight synthesis. Delivers comprehensive research reports on any topic.
@@ -46,7 +51,7 @@ Data investigation specialist extracting insights from complex datasets. Masters
 
 **Use when:** Analyzing datasets, discovering data patterns, performing statistical analysis, mining for insights, or investigating data anomalies.
 
-## =€ Quick Selection Guide
+## =ï¿½ Quick Selection Guide
 
 | If you need to... | Use this subagent |
 |-------------------|-------------------|
@@ -57,7 +62,7 @@ Data investigation specialist extracting insights from complex datasets. Masters
 | Understand markets | **market-researcher** |
 | Analyze data patterns | **data-researcher** |
 
-## =¡ Common Research Patterns
+## =ï¿½ Common Research Patterns
 
 **Market Intelligence:**
 - **market-researcher** for market analysis
@@ -83,7 +88,7 @@ Data investigation specialist extracting insights from complex datasets. Masters
 - **search-specialist** for information discovery
 - **trend-analyst** for industry evolution
 
-## <¬ Getting Started
+## <ï¿½ Getting Started
 
 1. **Define research objectives** clearly
 2. **Choose appropriate specialists** for your needs
@@ -91,7 +96,7 @@ Data investigation specialist extracting insights from complex datasets. Masters
 4. **Validate findings** through multiple sources
 5. **Apply insights** to decision-making
 
-## =Ú Best Practices
+## =ï¿½ Best Practices
 
 - **Start with clear questions:** Focus drives better research
 - **Use multiple sources:** Single sources can mislead

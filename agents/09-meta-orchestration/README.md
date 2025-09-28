@@ -1,8 +1,13 @@
+---
+name: meta-orchestration-readme
+description: Overview of Meta & Orchestration subagents for multi-agent coordination
+---
+
 # Meta & Orchestration Subagents
 
 Meta & Orchestration subagents are your conductors and coordinators, managing complex multi-agent workflows and optimizing AI system performance. These specialists excel at the meta-level - orchestrating other agents, managing context, distributing tasks, and ensuring smooth collaboration between multiple AI systems. They turn chaos into symphony, making complex AI systems work harmoniously together.
 
-## <¯ When to Use Meta & Orchestration Subagents
+## <ï¿½ When to Use Meta & Orchestration Subagents
 
 Use these subagents when you need to:
 - **Coordinate multiple agents** for complex tasks
@@ -14,7 +19,7 @@ Use these subagents when you need to:
 - **Design complex workflows** with multiple steps
 - **Scale AI operations** across teams
 
-## =Ë Available Subagents
+## =ï¿½ Available Subagents
 
 ### [**agent-organizer**](agent-organizer.md) - Multi-agent coordinator
 Orchestration expert managing complex multi-agent collaborations. Masters task decomposition, agent selection, and result synthesis. Turns complex problems into coordinated solutions.
@@ -56,7 +61,7 @@ Workflow specialist designing and executing sophisticated AI workflows. Expert i
 
 **Use when:** Designing complex workflows, implementing process automation, managing workflow state, handling long-running processes, or building workflow engines.
 
-## =€ Quick Selection Guide
+## =ï¿½ Quick Selection Guide
 
 | If you need to... | Use this subagent |
 |-------------------|-------------------|
@@ -69,7 +74,7 @@ Workflow specialist designing and executing sophisticated AI workflows. Expert i
 | Distribute tasks | **task-distributor** |
 | Automate workflows | **workflow-orchestrator** |
 
-## =¡ Common Orchestration Patterns
+## =ï¿½ Common Orchestration Patterns
 
 **Complex Problem Solving:**
 - **agent-organizer** for task breakdown
@@ -95,7 +100,7 @@ Workflow specialist designing and executing sophisticated AI workflows. Expert i
 - **agent-organizer** for research coordination
 - **workflow-orchestrator** for knowledge workflows
 
-## <¬ Getting Started
+## <ï¿½ Getting Started
 
 1. **Map your workflow** and identify complexity
 2. **Choose orchestration strategy** based on needs
@@ -103,7 +108,7 @@ Workflow specialist designing and executing sophisticated AI workflows. Expert i
 4. **Implement monitoring** from the start
 5. **Iterate and optimize** based on performance
 
-## =Ú Best Practices
+## =ï¿½ Best Practices
 
 - **Start simple:** Build complexity incrementally
 - **Monitor everything:** Visibility prevents issues
