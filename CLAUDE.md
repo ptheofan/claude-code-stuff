@@ -49,9 +49,12 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
   3. Analyze feature dependencies and propose ground-up build order
   4. Select appropriate agent(s) for the task:
      - typescript-pro for TS development
+     - nestjs-core-expert for NestJS fundamentals
      - nestjs-cqrs-expert for CQRS patterns
      - nestjs-eventemitter2-expert for event-driven architecture
      - nestjs-sagas-expert for workflow orchestration
+     - nestjs-passport-expert for authentication
+     - nestjs-unit-test-expert for unit testing
      - code-reviewer for quality checks
      - test-automator for testing
      - security-engineer for security
@@ -88,9 +91,12 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
   - nextjs-developer: Next.js application development
 
   **NestJS & Backend Architecture:**
+  - nestjs-core-expert: Core NestJS architecture, modules, providers, and dependency injection
   - nestjs-cqrs-expert: CQRS pattern implementation and command/query separation
   - nestjs-eventemitter2-expert: Event-driven architecture and domain events
   - nestjs-sagas-expert: Long-running processes and complex workflow orchestration
+  - nestjs-passport-expert: Authentication and authorization with Passport.js strategies
+  - nestjs-unit-test-expert: Unit testing for NestJS components with Jest and TestingModule
 
   **Infrastructure & DevOps:**
   - devops-engineer: Deployment and CI/CD processes
