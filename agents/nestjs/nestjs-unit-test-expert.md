@@ -240,6 +240,30 @@ describe('UserService (TypeORM)', () => {
 });
 ```
 
+### TypeORM @Transactional() Decorator Testing
+Mock the `@Transactional()` decorator as a no-op since unit tests focus on business logic, not transaction behavior.
+
+```typescript
+// At top of test file
+jest.mock('typeorm-transactional', () => ({
+  Transactional: () => (target: any, propertyKey: string, descriptor: PropertyDescriptor) => descriptor,
+  initializeTransactionalContext: jest.fn(),
+  addTransactionalDataSource: jest.fn(),
+}));
+
+// Then test normally - decorator becomes transparent
+it('should execute transactional method', async () => {
+  repository.save.mockResolvedValue(savedEntity);
+
+  const result = await service.methodWithTransactional(data);
+
+  expect(repository.save).toHaveBeenCalled();
+  expect(result).toEqual(savedEntity);
+});
+```
+
+**Key**: Test business logic and method calls, not rollback behavior (that's for integration tests).
+
 ### Mongoose Service Testing
 ```typescript
 describe('UserService (Mongoose)', () => {
