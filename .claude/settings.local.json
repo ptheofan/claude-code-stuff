@@ -1,9 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:docs.nestjs.com)",
-      "WebSearch",
-      "WebFetch(domain:github.com)"
+      "Bash(for:*)",
+      "Bash(do echo \"=== $file ===\" grep -n \"^## Installation\\|^## Setup\\|^## Basic Setup\" \"$file\")"
     ],
     "deny": [],
     "ask": []
