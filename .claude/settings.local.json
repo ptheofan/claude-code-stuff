@@ -4,7 +4,10 @@
       "Bash(for:*)",
       "Bash(do echo \"=== $file ===\" grep -n \"^## Installation\\|^## Setup\\|^## Basic Setup\" \"$file\")",
       "WebFetch(domain:docs.nestjs.com)",
-      "WebSearch"
+      "WebSearch",
+      "WebFetch(domain:typeorm.io)",
+      "WebFetch(domain:orkhan.gitbook.io)",
+      "WebFetch(domain:typeorm.biunav.com)"
     ],
     "deny": [],
     "ask": []

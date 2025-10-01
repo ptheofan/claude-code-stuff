@@ -634,7 +634,7 @@ All custom commands are designed to align with the development policy:
 - **Testing**: `qa-expert`, `test-automator`, `accessibility-tester`, `performance-engineer`
 - **TypeScript**: `typescript-pro`, `react-specialist`, `nextjs-developer`
 - **NestJS Core**: `nestjs-core-expert`, `nestjs-cqrs-expert`, `nestjs-eventemitter2-expert`, `nestjs-sagas-expert`, `nestjs-passport-expert`, `nestjs-unit-test-expert`
-- **NestJS Techniques**: `nestjs-database-expert`, `nestjs-typeorm-expert`, `nestjs-configuration-expert`, `nestjs-validation-expert`, `nestjs-caching-expert`, `nestjs-serialization-expert`, `nestjs-task-scheduling-expert`, `nestjs-queues-expert`, `nestjs-logger-expert`, `nestjs-security-expert`, `nestjs-file-upload-expert`, `nestjs-streaming-expert`, `nestjs-http-module-expert`, `nestjs-compression-expert`, `nestjs-cookies-expert`, `nestjs-session-expert`, `nestjs-mvc-expert`, `nestjs-versioning-expert`, `nestjs-sse-expert`
+- **NestJS Techniques**: `nestjs-database-expert`, `nestjs-typeorm-expert` (Data Mapper, mappers, tree entities, @Transactional), `nestjs-configuration-expert`, `nestjs-validation-expert`, `nestjs-caching-expert`, `nestjs-serialization-expert`, `nestjs-task-scheduling-expert`, `nestjs-queues-expert`, `nestjs-logger-expert`, `nestjs-security-expert`, `nestjs-file-upload-expert`, `nestjs-streaming-expert`, `nestjs-http-module-expert`, `nestjs-compression-expert`, `nestjs-cookies-expert`, `nestjs-session-expert`, `nestjs-mvc-expert`, `nestjs-versioning-expert`, `nestjs-sse-expert`
 - **Infrastructure**: `devops-engineer`, `cloud-architect`, `kubernetes-specialist`
 - **Security**: `security-engineer`, `security-auditor`, `penetration-tester`
 - **Debugging**: `debugger`, `error-detective`, `error-coordinator`
