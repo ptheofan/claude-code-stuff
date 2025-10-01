@@ -50,11 +50,29 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
   4. Select appropriate agent(s) for the task:
      - typescript-pro for TS development
      - nestjs-core-expert for NestJS fundamentals
-     - nestjs-cqrs-expert for CQRS patterns
+     - nestjs-cqrs-expert for CQRS patterns, sagas, and event-driven workflows
      - nestjs-eventemitter2-expert for event-driven architecture
-     - nestjs-sagas-expert for workflow orchestration
      - nestjs-passport-expert for authentication
      - nestjs-unit-test-expert for unit testing
+     - nestjs-database-expert for database integration (TypeORM, Prisma, Sequelize, Mongoose)
+     - nestjs-typeorm-expert for TypeORM Data Mapper pattern, mappers, and @Transactional()
+     - nestjs-configuration-expert for configuration management
+     - nestjs-validation-expert for input validation and DTOs
+     - nestjs-caching-expert for caching strategies
+     - nestjs-serialization-expert for response serialization
+     - nestjs-task-scheduling-expert for cron jobs and scheduled tasks
+     - nestjs-queues-expert for background job processing
+     - nestjs-logger-expert for logging
+     - nestjs-security-expert for security (Helmet, CORS, CSRF, rate limiting)
+     - nestjs-file-upload-expert for file uploads
+     - nestjs-streaming-expert for file streaming
+     - nestjs-http-module-expert for external API calls
+     - nestjs-compression-expert for response compression
+     - nestjs-cookies-expert for cookie management
+     - nestjs-session-expert for session management
+     - nestjs-mvc-expert for server-side rendering
+     - nestjs-versioning-expert for API versioning
+     - nestjs-sse-expert for Server-Sent Events
      - code-reviewer for quality checks
      - test-automator for testing
      - security-engineer for security
@@ -92,11 +110,29 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
 
   **NestJS & Backend Architecture:**
   - nestjs-core-expert: Core NestJS architecture, modules, providers, and dependency injection
-  - nestjs-cqrs-expert: CQRS pattern implementation and command/query separation
+  - nestjs-cqrs-expert: CQRS pattern, commands, queries, events, sagas, event sourcing, and workflow orchestration
   - nestjs-eventemitter2-expert: Event-driven architecture and domain events
-  - nestjs-sagas-expert: Long-running processes and complex workflow orchestration
   - nestjs-passport-expert: Authentication and authorization with Passport.js strategies
   - nestjs-unit-test-expert: Unit testing for NestJS components with Jest and TestingModule
+  - nestjs-database-expert: Database integration with TypeORM, Prisma, Sequelize, and Mongoose
+  - nestjs-typeorm-expert: TypeORM Data Mapper pattern, custom repositories, mappers, @Transactional() decorator, and testing
+  - nestjs-configuration-expert: Configuration management and environment variables
+  - nestjs-validation-expert: Input validation, DTOs, and data transformation
+  - nestjs-caching-expert: Caching strategies with Redis and in-memory cache
+  - nestjs-serialization-expert: Response serialization and data transformation
+  - nestjs-task-scheduling-expert: Cron jobs, intervals, and scheduled tasks
+  - nestjs-queues-expert: Background job processing with Bull/BullMQ
+  - nestjs-logger-expert: Logging with Winston, Pino, and built-in logger
+  - nestjs-security-expert: Security best practices (Helmet, CORS, CSRF, rate limiting)
+  - nestjs-file-upload-expert: File upload handling with Multer and cloud storage
+  - nestjs-streaming-expert: File streaming and large data handling
+  - nestjs-http-module-expert: External API integration with HttpModule
+  - nestjs-compression-expert: Response compression for performance
+  - nestjs-cookies-expert: Cookie management and secure cookie handling
+  - nestjs-session-expert: Session management with Redis and other stores
+  - nestjs-mvc-expert: Server-side rendering with template engines
+  - nestjs-versioning-expert: API versioning strategies
+  - nestjs-sse-expert: Server-Sent Events for real-time updates
 
   **Infrastructure & DevOps:**
   - devops-engineer: Deployment and CI/CD processes
