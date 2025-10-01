@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(for:*)",
-      "Bash(do echo \"=== $file ===\" grep -n \"^## Installation\\|^## Setup\\|^## Basic Setup\" \"$file\")"
+      "Bash(do echo \"=== $file ===\" grep -n \"^## Installation\\|^## Setup\\|^## Basic Setup\" \"$file\")",
+      "WebFetch(domain:docs.nestjs.com)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []

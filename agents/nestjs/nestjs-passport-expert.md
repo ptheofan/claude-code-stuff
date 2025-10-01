@@ -194,7 +194,7 @@ export class AuthController {
 }
 ```
 
-### Custom User Decorator
+### Custom User Decorator (REST)
 ```typescript
 // decorators/get-user.decorator.ts
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
@@ -218,6 +218,41 @@ getProfile(@GetUser() user: User) {
 @UseGuards(JwtAuthGuard)
 getEmail(@GetUser('email') email: string) {
   return { email };
+}
+```
+
+### Custom User Decorator (GraphQL)
+```typescript
+// decorators/current-user.decorator.ts
+import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import { GqlExecutionContext } from '@nestjs/graphql';
+
+export const CurrentUser = createParamDecorator(
+  (data: unknown, ctx: ExecutionContext) =>
+    GqlExecutionContext.create(ctx).getContext().req.user,
+);
+
+// Usage in resolver
+@Query(() => User)
+@UseGuards(GqlAuthGuard)
+async me(@CurrentUser() user: User): Promise<User> {
+  return this.usersService.findById(user.id);
+}
+```
+
+### GraphQL Auth Guard
+```typescript
+// guards/gql-auth.guard.ts
+import { ExecutionContext, Injectable } from '@nestjs/common';
+import { GqlExecutionContext } from '@nestjs/graphql';
+import { AuthGuard } from '@nestjs/passport';
+
+@Injectable()
+export class GqlAuthGuard extends AuthGuard('jwt') {
+  getRequest(context: ExecutionContext) {
+    const ctx = GqlExecutionContext.create(context);
+    return ctx.getContext().req;
+  }
 }
 ```
 

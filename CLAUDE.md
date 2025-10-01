@@ -112,7 +112,7 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
   - nestjs-core-expert: Core NestJS architecture, modules, providers, and dependency injection
   - nestjs-cqrs-expert: CQRS pattern, commands, queries, events, sagas, event sourcing, and workflow orchestration
   - nestjs-eventemitter2-expert: Event-driven architecture and domain events
-  - nestjs-passport-expert: Authentication and authorization with Passport.js strategies
+  - nestjs-passport-expert: Authentication and authorization with Passport.js strategies (JWT, OAuth, sessions, GraphQL auth guards)
   - nestjs-unit-test-expert: Unit testing for NestJS components with Jest and TestingModule
   - nestjs-database-expert: Database integration with TypeORM, Prisma, Sequelize, and Mongoose
   - nestjs-typeorm-expert: TypeORM Data Mapper pattern, custom repositories, mappers, @Transactional() decorator, and testing

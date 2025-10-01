@@ -63,7 +63,7 @@ cd claude-code-stuff
 - **Business & Product** (08-business-product/) - PM, UX, legal, marketing
 - **Meta Orchestration** (09-meta-orchestration/) - Multi-agent coordination, workflow
 - **Research & Analysis** (10-research-analysis/) - Market research, competitive analysis
-- **NestJS Specialists** (nestjs/) - Core architecture, CQRS, EventEmitter2, Sagas, Passport authentication, and Unit Testing for advanced NestJS patterns
+- **NestJS Specialists** (nestjs/) - Core architecture, CQRS, EventEmitter2, Sagas, Passport authentication (REST & GraphQL), and Unit Testing for advanced NestJS patterns
 
 ## 🎯 Development Policy
 
