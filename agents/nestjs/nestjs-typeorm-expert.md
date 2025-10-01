@@ -285,6 +285,122 @@ export class UserProfileEntity {
 }
 ```
 
+## Tree Entities
+
+TypeORM supports hierarchical data structures with 4 patterns: **Closure Table** (recommended), **Materialized Path**, **Nested Set**, and **Adjacency List** (no TreeRepository support).
+
+**Documentation:** [TypeORM Tree Entities](https://typeorm.biunav.com/en/tree-entities.html) (Note: This is TypeORM documentation, not NestJS-specific)
+
+### Entity Definition
+
+```typescript
+// Use @Tree decorator with @TreeChildren and @TreeParent
+@Entity('categories')
+@Tree('closure-table') // or 'materialized-path', 'nested-set'
+export class CategoryEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
+  name: string;
+
+  @TreeChildren()
+  children: CategoryEntity[];
+
+  @TreeParent()
+  parent: CategoryEntity | null;
+}
+```
+
+### Repository Pattern
+
+```typescript
+// Access TreeRepository via EntityManager
+@Injectable()
+export class CategoryRepository {
+  private treeRepository: TreeRepository<CategoryEntity>;
+
+  constructor(@InjectEntityManager() private entityManager: EntityManager) {
+    this.treeRepository = entityManager.getTreeRepository(CategoryEntity);
+  }
+
+  async findTrees(): Promise<CategoryEntity[]> {
+    return this.treeRepository.findTrees(); // All trees with full hierarchy
+  }
+
+  async findRoots(): Promise<CategoryEntity[]> {
+    return this.treeRepository.findRoots(); // Root nodes only
+  }
+
+  async findDescendants(category: CategoryEntity): Promise<CategoryEntity[]> {
+    return this.treeRepository.findDescendants(category);
+  }
+
+  async findAncestors(category: CategoryEntity): Promise<CategoryEntity[]> {
+    return this.treeRepository.findAncestors(category);
+  }
+
+  async findDescendantsTree(category: CategoryEntity): Promise<CategoryEntity> {
+    return this.treeRepository.findDescendantsTree(category); // Returns tree
+  }
+
+  // Use EntityManager for CRUD operations
+  async findById(id: string): Promise<CategoryEntity | null> {
+    return this.entityManager.findOne(CategoryEntity, { where: { id } });
+  }
+
+  async create(name: string, parent: CategoryEntity | null): Promise<CategoryEntity> {
+    const entity = this.entityManager.create(CategoryEntity, { name, parent });
+    return this.entityManager.save(entity);
+  }
+}
+```
+
+### Testing Tree Repositories
+
+```typescript
+describe('CategoryRepository', () => {
+  let repository: CategoryRepository;
+  let mockTreeRepository: jest.Mocked<TreeRepository<CategoryEntity>>;
+  let mockEntityManager: jest.Mocked<EntityManager>;
+
+  beforeEach(async () => {
+    mockTreeRepository = {
+      findTrees: jest.fn(),
+      findDescendants: jest.fn(),
+      // ... other tree methods
+    } as unknown as jest.Mocked<TreeRepository<CategoryEntity>>;
+
+    mockEntityManager = {
+      getTreeRepository: jest.fn().mockReturnValue(mockTreeRepository),
+      findOne: jest.fn(),
+      create: jest.fn(),
+      save: jest.fn(),
+    } as unknown as jest.Mocked<EntityManager>;
+
+    const module = await Test.createTestingModule({
+      providers: [
+        CategoryRepository,
+        { provide: getEntityManagerToken(), useValue: mockEntityManager },
+      ],
+    }).compile();
+
+    repository = module.get(CategoryRepository);
+  });
+
+  it('should find all trees', async () => {
+    const mockTrees = [{ id: '1', name: 'Root', children: [] }] as CategoryEntity[];
+    mockTreeRepository.findTrees.mockResolvedValue(mockTrees);
+
+    const result = await repository.findTrees();
+
+    expect(result).toEqual(mockTrees);
+  });
+});
+```
+
+**Pattern Selection:** Use **Closure Table** for most cases (efficient reads/writes). Use **Materialized Path** for simpler needs. Avoid **Nested Set** (slow writes, single root) and **Adjacency List** (no TreeRepository).
+
 ## Mapper Pattern: Entity ↔ DTO Conversion
 
 ### DTOs

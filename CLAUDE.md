@@ -55,7 +55,7 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
      - nestjs-passport-expert for authentication
      - nestjs-unit-test-expert for unit testing
      - nestjs-database-expert for database integration (TypeORM, Prisma, Sequelize, Mongoose)
-     - nestjs-typeorm-expert for TypeORM Data Mapper pattern, mappers, and @Transactional()
+     - nestjs-typeorm-expert for TypeORM Data Mapper pattern, mappers, tree entities, and @Transactional()
      - nestjs-configuration-expert for configuration management
      - nestjs-validation-expert for input validation and DTOs
      - nestjs-caching-expert for caching strategies
@@ -115,7 +115,7 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
   - nestjs-passport-expert: Authentication and authorization with Passport.js strategies (JWT, OAuth, sessions, GraphQL auth guards)
   - nestjs-unit-test-expert: Unit testing for NestJS components with Jest and TestingModule
   - nestjs-database-expert: Database integration with TypeORM, Prisma, Sequelize, and Mongoose
-  - nestjs-typeorm-expert: TypeORM Data Mapper pattern, custom repositories, mappers, @Transactional() decorator, and testing
+  - nestjs-typeorm-expert: TypeORM Data Mapper pattern, custom repositories, mappers, @Transactional() decorator, tree entities, and testing
   - nestjs-configuration-expert: Configuration management and environment variables
   - nestjs-validation-expert: Input validation, DTOs, and data transformation
   - nestjs-caching-expert: Caching strategies with Redis and in-memory cache
