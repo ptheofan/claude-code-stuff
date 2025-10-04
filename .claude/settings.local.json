@@ -7,7 +7,13 @@
       "WebSearch",
       "WebFetch(domain:typeorm.io)",
       "WebFetch(domain:orkhan.gitbook.io)",
-      "WebFetch(domain:typeorm.biunav.com)"
+      "WebFetch(domain:typeorm.biunav.com)",
+      "Bash(mkdir:*)",
+      "WebFetch(domain:www.apollographql.com)",
+      "Bash(do echo \"=== $file ===\")",
+      "Bash(grep:*)",
+      "Bash(head:*)",
+      "Bash(done)"
     ],
     "deny": [],
     "ask": []
