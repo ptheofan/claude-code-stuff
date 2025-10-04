@@ -73,6 +73,12 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
      - nestjs-mvc-expert for server-side rendering
      - nestjs-versioning-expert for API versioning
      - nestjs-sse-expert for Server-Sent Events
+     - apollo-client-setup-expert for Apollo Client configuration and setup
+     - apollo-queries-expert for Apollo Client queries (useQuery, useLazyQuery)
+     - apollo-mutations-expert for Apollo Client mutations and cache updates
+     - apollo-caching-expert for Apollo Client caching strategies
+     - apollo-subscriptions-expert for Apollo Client subscriptions and real-time data
+     - apollo-testing-expert for testing Apollo Client applications
      - code-reviewer for quality checks
      - test-automator for testing
      - security-engineer for security
@@ -133,6 +139,14 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
   - nestjs-mvc-expert: Server-side rendering with template engines
   - nestjs-versioning-expert: API versioning strategies
   - nestjs-sse-expert: Server-Sent Events for real-time updates
+
+  **Apollo GraphQL & Client:**
+  - apollo-client-setup-expert: Apollo Client setup, configuration, ApolloProvider, link configuration, cache setup, and authentication
+  - apollo-queries-expert: Apollo Client queries including useQuery, useLazyQuery, query options, polling, and refetching
+  - apollo-mutations-expert: Apollo Client mutations including useMutation, optimistic responses, and cache updates
+  - apollo-caching-expert: Apollo Client caching including InMemoryCache configuration, cache policies, field policies, and cache persistence
+  - apollo-subscriptions-expert: Apollo Client subscriptions including useSubscription, WebSocket setup, and real-time updates
+  - apollo-testing-expert: Testing Apollo Client applications with MockedProvider, query/mutation testing, and mocking strategies
 
   **Infrastructure & DevOps:**
   - devops-engineer: Deployment and CI/CD processes
