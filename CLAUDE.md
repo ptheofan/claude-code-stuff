@@ -50,8 +50,8 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
   4. Select appropriate agent(s) for the task:
      - typescript-pro for TS development
      - nestjs-core-expert for NestJS fundamentals
-     - nestjs-cqrs-expert for CQRS patterns, sagas, and event-driven workflows
-     - nestjs-eventemitter2-expert for event-driven architecture
+     - nestjs-cqrs-expert for CQRS patterns, sagas, and CQRS event-driven workflows (nestjs CQRS)
+     - nestjs-eventemitter2-expert for nestjs eventemitter2 architecture (nestjs events bus)
      - nestjs-passport-expert for authentication
      - nestjs-unit-test-expert for unit testing
      - nestjs-database-expert for database integration (TypeORM, Prisma, Sequelize, Mongoose)
