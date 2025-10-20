@@ -64,6 +64,7 @@ cd claude-code-stuff
 - **Meta Orchestration** (09-meta-orchestration/) - Multi-agent coordination, workflow
 - **Research & Analysis** (10-research-analysis/) - Market research, competitive analysis
 - **NestJS Specialists** (nestjs/) - Core architecture, CQRS, EventEmitter2, Sagas, Passport authentication (REST & GraphQL), and Unit Testing for advanced NestJS patterns
+- **NX Monorepo** - NX monorepo management for NestJS projects using @nx/nest plugin with workspace setup, application/library generation, complete NestJS scaffolding (modules, controllers, services, resources, guards, pipes, interceptors, etc.), dependency graph management, affected commands for CI/CD optimization, tag-based module boundaries enforcement, caching strategies (Nx Replay), project structure best practices (feature-based organization, data-access patterns, library types), executors configuration, and VSCode debugging
 - **Apollo GraphQL** (apollo-graphql/) - Apollo Client setup, queries, mutations, caching, subscriptions, and testing for GraphQL applications
 
 ## 🎯 Development Policy
@@ -636,6 +637,8 @@ All custom commands are designed to align with the development policy:
 - **TypeScript**: `typescript-pro`, `react-specialist`, `nextjs-developer`
 - **NestJS Core**: `nestjs-core-expert`, `nestjs-cqrs-expert`, `nestjs-eventemitter2-expert`, `nestjs-sagas-expert`, `nestjs-passport-expert`, `nestjs-unit-test-expert`
 - **NestJS Techniques**: `nestjs-database-expert`, `nestjs-typeorm-expert` (Data Mapper, mappers, tree entities, @Transactional), `nestjs-configuration-expert`, `nestjs-validation-expert`, `nestjs-caching-expert`, `nestjs-serialization-expert`, `nestjs-task-scheduling-expert`, `nestjs-queues-expert`, `nestjs-logger-expert`, `nestjs-security-expert`, `nestjs-file-upload-expert`, `nestjs-streaming-expert`, `nestjs-http-module-expert`, `nestjs-compression-expert`, `nestjs-cookies-expert`, `nestjs-session-expert`, `nestjs-mvc-expert`, `nestjs-versioning-expert`, `nestjs-sse-expert`
+- **NX Monorepo**: `nx-monorepo-expert`
+- **qBittorrent Integration**: `qbittorrent-api-expert`
 - **Apollo GraphQL**: `apollo-client-setup-expert`, `apollo-queries-expert`, `apollo-mutations-expert`, `apollo-caching-expert`, `apollo-subscriptions-expert`, `apollo-testing-expert`
 - **Infrastructure**: `devops-engineer`, `cloud-architect`, `kubernetes-specialist`
 - **Security**: `security-engineer`, `security-auditor`, `penetration-tester`

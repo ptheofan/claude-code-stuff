@@ -13,7 +13,9 @@
       "Bash(do echo \"=== $file ===\")",
       "Bash(grep:*)",
       "Bash(head:*)",
-      "Bash(done)"
+      "Bash(done)",
+      "WebFetch(domain:nx.dev)",
+      "WebFetch(domain:github.com)"
     ],
     "deny": [],
     "ask": []

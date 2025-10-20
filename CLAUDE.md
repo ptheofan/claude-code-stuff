@@ -73,6 +73,8 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
      - nestjs-mvc-expert for server-side rendering
      - nestjs-versioning-expert for API versioning
      - nestjs-sse-expert for Server-Sent Events
+     - nx-monorepo-expert for NX monorepo management with NestJS
+     - qbittorrent-api-expert for qBittorrent Web API integration
      - apollo-client-setup-expert for Apollo Client configuration and setup
      - apollo-queries-expert for Apollo Client queries (useQuery, useLazyQuery)
      - apollo-mutations-expert for Apollo Client mutations and cache updates
@@ -139,6 +141,12 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
   - nestjs-mvc-expert: Server-side rendering with template engines
   - nestjs-versioning-expert: API versioning strategies
   - nestjs-sse-expert: Server-Sent Events for real-time updates
+
+  **NX Monorepo & Workspace Management:**
+  - nx-monorepo-expert: Expert in NX monorepo management for NestJS projects using @nx/nest plugin (latest version). Specializes in workspace initialization (npx create-nx-workspace --preset=nest, nx add @nx/nest), application and library generation (apps, buildable libs, publishable libs with custom import paths), complete NestJS scaffolding (application, library, module, controller, service, resource, pipe, guard, interceptor, middleware, filter, decorator, provider, gateway, resolver, class, interface), dependency graph management (nx graph, project visualization), affected commands for CI/CD optimization (nx affected -t build/test/lint, nx run-many), project removal and migration, tag-based boundaries and @nx/enforce-module-boundaries lint rules (scope and type tags, constraint enforcement), caching strategies (local and remote Nx Replay), monorepo structure best practices (feature-based organization, data-access patterns, ui/util/model library types, 80/20 apps-to-libs ratio), executors configuration (build, serve, test, lint in project.json), project graph visualization (nx graph with task dependencies), VSCode debugging setup, Docker deployment with @nx/node:setup-docker, CLI plugin configuration (transformers for Swagger, etc.), and enterprise-scale monorepo patterns. Always enforces module boundaries and architectural best practices including proper library type classification (feature, data-access, ui, shell, utils, model), scope-based organization, public API enforcement via index.ts, and circular dependency prevention.
+
+  **qBittorrent Integration:**
+  - qbittorrent-api-expert: Expert in qBittorrent Web API (v4.1+) integration using @ctrl/qbittorrent TypeScript library (v9.9+). Specializes in both raw API endpoints and normalized library methods including getAllData(), getTorrent(), pauseTorrent(), resumeTorrent(), addTorrent(), removeTorrent(). Covers authentication (cookie-based SID, automatic login), application management (preferences, settings, version info), torrent management (add, delete, pause, resume, files, properties, categories, tags, trackers), transfer info (speeds, limits, quotas), RSS feed management (feeds, rules, article matching), search functionality (plugins, queries), logging (main log, peer log), and sync endpoints. Provides production-ready solutions for qBittorrent automation with type-safe implementations, normalized functions for torrent client interoperability, state management (export/import), error handling, rate limiting, and real-time updates.
 
   **Apollo GraphQL & Client:**
   - apollo-client-setup-expert: Apollo Client setup, configuration, ApolloProvider, link configuration, cache setup, and authentication
