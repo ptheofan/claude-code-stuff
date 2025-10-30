@@ -15,7 +15,8 @@
       "Bash(head:*)",
       "Bash(done)",
       "WebFetch(domain:nx.dev)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:vincit.github.io)"
     ],
     "deny": [],
     "ask": []

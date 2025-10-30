@@ -56,6 +56,7 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
      - nestjs-unit-test-expert for unit testing
      - nestjs-database-expert for database integration (TypeORM, Prisma, Sequelize, Mongoose)
      - nestjs-typeorm-expert for TypeORM Data Mapper pattern, mappers, tree entities, and @Transactional()
+     - objection-orm-expert for Objection.js ORM with TypeScript, Knex.js, relations, and graph operations
      - nestjs-configuration-expert for configuration management
      - nestjs-validation-expert for input validation and DTOs
      - nestjs-caching-expert for caching strategies
@@ -124,6 +125,7 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
   - nestjs-unit-test-expert: Unit testing for NestJS components with Jest and TestingModule
   - nestjs-database-expert: Database integration with TypeORM, Prisma, Sequelize, and Mongoose
   - nestjs-typeorm-expert: TypeORM Data Mapper pattern, custom repositories, mappers, @Transactional() decorator, tree entities, and testing
+  - objection-orm-expert: Objection.js ORM with TypeScript focus covering model definition with jsonSchema validation, relation types (HasMany, BelongsToOne, ManyToMany, HasOne, HasOneThrough), query building with Knex.js integration, eager loading (withGraphFetched vs withGraphJoined), graph operations (insertGraph, upsertGraph with #ref/#id), transaction management, lifecycle hooks ($beforeInsert, $afterUpdate, etc.), snake_case to camelCase conversion, raw queries, JSON/JSONB queries, custom query builders, modifiers, and production patterns. Handles complex hierarchical data operations and provides type-safe database access patterns.
   - nestjs-configuration-expert: Configuration management and environment variables
   - nestjs-validation-expert: Input validation, DTOs, and data transformation
   - nestjs-caching-expert: Caching strategies with Redis and in-memory cache
