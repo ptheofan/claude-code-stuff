@@ -2,13 +2,13 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
   
   This policy is MANDATORY for ALL projects and sessions
 
-  === TYPE SAFETY (TypeScript) ===
+  # TYPE SAFETY (TypeScript)
   - MINIMIZE 'any' types - only acceptable in extreme cases like catch (error: unknown)
   - NO shortcuts: no @ts-ignore, no casting to unknown unless absolutely necessary
   - EXCEPTION: In tests only, 'as unknown as SomeType' is acceptable for mocking
   - NO disabling TypeScript warnings or eslint rules
 
-  === MANDATORY FEATURE DEVELOPMENT PROCESS ===
+  # MANDATORY FEATURE DEVELOPMENT PROCESS
   1. PLAN: Break feature into small testable parts
   2. PRIORITIZE: Always propose next steps that minimize dependencies on unimplemented features
      - Build foundational components first (utilities, data models, core services)
@@ -29,7 +29,7 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
      ✅ Minimal TODOs (only for legitimate missing dependencies with tickets)
      ✅ Proper error handling
 
-  === FORBIDDEN SHORTCUTS ===
+  # FORBIDDEN SHORTCUTS
   ❌ Disabling warnings/errors
   ❌ @ts-ignore without justification  
   ❌ Casting to any/unknown for convenience (except 'as unknown as Type' in tests for mocking)
@@ -41,9 +41,29 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
   ❌ Reducing coverage below 80%
   ❌ Using deprecated functions/APIs
 
-  REMINDER: Forgetting this policy is unacceptable. Quality over speed ALWAYS.
+  **REMINDER: Forgetting this policy is unacceptable. Quality over speed ALWAYS.**
+
+  ## Unit Tests, Integration Tests and E2E tests strategy
+  We use the pyramid layered approach following the **Solitary Unit Testing** pattern.
+  ### Unit Tests
+   - test the smallest functions
+   - test services (mock smaller functions used that are already unit tested)
+   - test commands (mock services and smaller functionat that are already unit tested)
+   - test queries (mock what is already unit tested)
+   - test gql resolvers (intput/output) as internal calls should have been already unit tested with any of the prev mentioned
+   - test gql queries (intput/output) as internal calls should have been already unit tested with any of the prev mentioned
+   - test REST API controller/actions input/output as internal calls should have been already unit tested with any of the prev mentioned
+
+  ### Integration Tests
+   - focus on database ops and other internal integrations (feel free to mock things that are already unit tested)
+
+  ### E2E Tests
+  As E2E tests are expensive we are more selective about them.
+  - focus on happy critical business paths
+  - include selective business critical failure paths
+  - exclude paths are covered by unit tests and integration tests
   
-  Before starting ANY work:
+  ## Before starting ANY work:
   1. Confirm understanding of current state
   2. Reference this policy
   3. Analyze feature dependencies and propose ground-up build order
@@ -90,7 +110,7 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
   5. Plan incremental approach prioritizing dependency-free components
   6. Use TODO comments only for legitimate missing feature dependencies with ticket references
 
-  === SESSION BEHAVIOR REQUIREMENTS ===
+  # SESSION BEHAVIOR REQUIREMENTS
   - ALWAYS check this policy before starting any work
   - REQUIRE explicit confirmation of approach before major changes  
   - ENFORCE 80%+ test coverage standard - no exceptions
@@ -98,7 +118,7 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
   - PREFER specialized agents over generic responses
   - ALWAYS validate against quality gates before marking work complete
 
-  === AGENT SELECTION GUIDELINES ===
+  # AGENT SELECTION GUIDELINES ===
   When selecting agents for tasks, use these domain-specific guidelines:
 
   **Code Quality & Architecture:**
@@ -189,14 +209,14 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
   - ux-researcher: User experience research and design
   - legal-advisor: Compliance and regulatory requirements
 
-  === PLANNING STRATEGY REQUIREMENTS ===
+  ## PLANNING STRATEGY REQUIREMENTS
   - ALWAYS prioritize foundational components first
   - MINIMIZE TODOs - build actual functionality instead of leaving notes
   - MANDATORY build order: data_models → utilities → core_services → business_logic → ui_components → integrations
   - USE dependency-aware incremental development approach
   - BUILD in small, testable increments (1-2 hour max per iteration)
 
-  === PROJECT DEFAULTS ===
+  ## PROJECT DEFAULTS
   **TypeScript Standards:**
   - strict: true (non-negotiable)
   - no_any_tolerance: minimal (only for catch blocks and extreme edge cases)
@@ -210,7 +230,7 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
     - Integration tests: test component interactions, use real dependencies
     - NEVER mix unit and integration test patterns
 
-  === QUALITY GATES (ALL MUST PASS) ===
+  # QUALITY GATES (ALL MUST PASS)
   ✅ No TypeScript errors
   ✅ All tests passing
   ✅ Coverage >= 80%
@@ -221,4 +241,4 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
   ✅ Code reviewed by appropriate agent
   ✅ Working codebase state
 
-  FAILURE TO MEET QUALITY GATES = WORK IS NOT COMPLETE
+  **FAILURE TO MEET QUALITY GATES = WORK IS NOT COMPLETE**
