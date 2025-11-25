@@ -43,6 +43,16 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
 
   **REMINDER: Forgetting this policy is unacceptable. Quality over speed ALWAYS.**
 
+  ## Before starting ANY work (workflow):
+  1. Confirm understanding of current state
+  2. Reference this policy
+  3. Analyze feature dependencies and propose ground-up build order
+  4. Select appropriate agent(s) for the task(s)
+  5. Plan incremental approach prioritizing dependency-free components
+  6. Use TODO comments only for legitimate missing feature dependencies with ticket references
+  7. Always use context7 when I need code generation, setup or configuration steps, or library/API documentation. This means you should automatically use the Context7 MCP tools to resolve library id and get library docs without me having to explicitly ask.
+  8. Utilize MCP tools for accessing databases and browsers to investigate, iterate and resolve.
+
   ## Unit Tests, Integration Tests and E2E tests strategy
   We use the pyramid layered approach following the **Solitary Unit Testing** pattern.
   ### Unit Tests
@@ -56,69 +66,15 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
 
   ### Integration Tests
    - focus on database ops and other internal integrations (feel free to mock things that are already unit tested)
+   - should be self contained and not depend on real production data or production seeders.
 
   ### E2E Tests
   As E2E tests are expensive we are more selective about them.
   - focus on happy critical business paths
   - include selective business critical failure paths
   - exclude paths are covered by unit tests and integration tests
-  
-  ## Before starting ANY work:
-  1. Confirm understanding of current state
-  2. Reference this policy
-  3. Analyze feature dependencies and propose ground-up build order
-  4. Select appropriate agent(s) for the task:
-     - typescript-pro for TS development
-     - nestjs-core-expert for NestJS fundamentals
-     - nestjs-cqrs-expert for CQRS patterns, sagas, and CQRS event-driven workflows (nestjs CQRS)
-     - nestjs-eventemitter2-expert for nestjs eventemitter2 architecture (nestjs events bus)
-     - nestjs-passport-expert for authentication
-     - nestjs-unit-test-expert for unit testing
-     - nestjs-database-expert for database integration (TypeORM, Prisma, Sequelize, Mongoose)
-     - nestjs-typeorm-expert for TypeORM Data Mapper pattern, mappers, tree entities, and @Transactional()
-     - objection-orm-expert for Objection.js ORM with TypeScript, Knex.js, relations, and graph operations
-     - nestjs-configuration-expert for configuration management
-     - nestjs-validation-expert for input validation and DTOs
-     - nestjs-caching-expert for caching strategies
-     - nestjs-serialization-expert for response serialization
-     - nestjs-task-scheduling-expert for cron jobs and scheduled tasks
-     - nestjs-queues-expert for background job processing
-     - nestjs-logger-expert for logging
-     - nestjs-security-expert for security (Helmet, CORS, CSRF, rate limiting)
-     - nestjs-file-upload-expert for file uploads
-     - nestjs-streaming-expert for file streaming
-     - nestjs-http-module-expert for external API calls
-     - nestjs-compression-expert for response compression
-     - nestjs-cookies-expert for cookie management
-     - nestjs-session-expert for session management
-     - nestjs-mvc-expert for server-side rendering
-     - nestjs-versioning-expert for API versioning
-     - nestjs-sse-expert for Server-Sent Events
-     - nx-monorepo-expert for NX monorepo management with NestJS
-     - qbittorrent-api-expert for qBittorrent Web API integration
-     - apollo-client-setup-expert for Apollo Client configuration and setup
-     - apollo-queries-expert for Apollo Client queries (useQuery, useLazyQuery)
-     - apollo-mutations-expert for Apollo Client mutations and cache updates
-     - apollo-caching-expert for Apollo Client caching strategies
-     - apollo-subscriptions-expert for Apollo Client subscriptions and real-time data
-     - apollo-testing-expert for testing Apollo Client applications
-     - code-reviewer for quality checks
-     - test-automator for testing
-     - security-engineer for security
-     - performance-engineer for optimization
-     - multi-agent-coordinator for complex workflows
-  5. Plan incremental approach prioritizing dependency-free components
-  6. Use TODO comments only for legitimate missing feature dependencies with ticket references
 
-  # SESSION BEHAVIOR REQUIREMENTS
-  - ALWAYS check this policy before starting any work
-  - REQUIRE explicit confirmation of approach before major changes  
-  - ENFORCE 80%+ test coverage standard - no exceptions
-  - AGENT SELECTION IS MANDATORY - always specify which agent(s) to use
-  - PREFER specialized agents over generic responses
-  - ALWAYS validate against quality gates before marking work complete
-
-  # AGENT SELECTION GUIDELINES ===
+  ## AGENT SELECTION GUIDELINES ===
   When selecting agents for tasks, use these domain-specific guidelines:
 
   **Code Quality & Architecture:**
