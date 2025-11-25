@@ -77,6 +77,7 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
   ## Errors and Exceptions
   - Prefer Domain Exceptions instead of plain errors where applicable
   - Exceptions should include the appropriate data required to make them traceable, easy to understand, resolve and debug.
+  - Keep test environment noise-free by stubbing the logger and use the logger.error, logger.info, logger.warn as evidence in the test
 
   ## AGENT SELECTION GUIDELINES ===
   When selecting agents for tasks, use these domain-specific guidelines:
