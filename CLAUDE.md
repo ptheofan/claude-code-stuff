@@ -74,6 +74,10 @@ CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
   - include selective business critical failure paths
   - exclude paths are covered by unit tests and integration tests
 
+  ## Errors and Exceptions
+  - Prefer Domain Exceptions instead of plain errors where applicable
+  - Exceptions should include the appropriate data required to make them traceable, easy to understand, resolve and debug.
+
   ## AGENT SELECTION GUIDELINES ===
   When selecting agents for tasks, use these domain-specific guidelines:
 
