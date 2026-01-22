@@ -1,205 +1,71 @@
-CRITICAL DEVELOPMENT POLICY - NEVER IGNORE OR FORGET:
-  
-  This policy is MANDATORY for ALL projects and sessions
+# CLAUDE.md
 
-  # TYPE SAFETY (TypeScript)
-  - MINIMIZE 'any' types - only acceptable in extreme cases like catch (error: unknown)
-  - NO shortcuts: no @ts-ignore, no casting to unknown unless absolutely necessary
-  - EXCEPTION: In tests only, 'as unknown as SomeType' is acceptable for mocking
-  - NO disabling TypeScript warnings or eslint rules
+## Core Principles
 
-  # MANDATORY FEATURE DEVELOPMENT PROCESS
-  1. PLAN: Break feature into small testable parts
-  2. PRIORITIZE: Always propose next steps that minimize dependencies on unimplemented features
-     - Build foundational components first (utilities, data models, core services)
-     - Implement dependency-free features before dependent ones
-     - Create mock/stub interfaces for missing dependencies when absolutely necessary
-  3. ITERATE: Advance in small parts, test each iteration, ensure working condition
-  4. DEFINITION OF DONE (ALL must be met):
-     ✅ Meets ALL requirements
-     ✅ ALL tests pass (no deleting tests to fix builds)
-     ✅ 80%+ coverage with SEPARATE unit and integration test suites
-     ✅ Unit tests: isolated, fast, mock external dependencies
-     ✅ Integration tests: test component interactions, use real dependencies
-     ✅ Entire codebase in fully working condition
-     ✅ No TypeScript errors/warnings
-     ✅ No deprecated functions/APIs used
-     ✅ Follows KISS principle (simple, readable solutions)
-     ✅ Minimal, justified mocking (only external dependencies in unit tests)
-     ✅ Minimal TODOs (only for legitimate missing dependencies with tickets)
-     ✅ Proper error handling
+- **Clean Architecture**: Import downward, emit events upward. No circular dependencies.
+- **Strict module boundaries**: NEVER access internals of another module. Only use exposed public APIs. Never import another module's entities directly.
+- **Simple, reusable code**: Prefer clarity over cleverness.
+- **Centralize external integrations**: All calls to Service X go through one class/function.
+- **Minimal comments**: Only for complex/non-obvious logic.
+- **No deprecated code**: Ever.
+- **No TS overrides**: No `@ts-ignore`, `any` casts, or suppressed warnings (tests excepted when necessary).
+- **Types/Interfaces**: Keep in separate files.
 
-  # FORBIDDEN SHORTCUTS
-  ❌ Disabling warnings/errors
-  ❌ @ts-ignore without justification  
-  ❌ Casting to any/unknown for convenience (except 'as unknown as Type' in tests for mocking)
-  ❌ Skipping tests
-  ❌ Deleting tests to avoid fixing failures (removing redundant tests OK with justification)
-  ❌ Over-mocking (mock only external dependencies in unit tests, NOT in integration tests)
-  ❌ Mixing unit and integration test patterns
-  ❌ Committing broken code
-  ❌ Reducing coverage below 80%
-  ❌ Using deprecated functions/APIs
+## Testing
 
-  **REMINDER: Forgetting this policy is unacceptable. Quality over speed ALWAYS.**
+- **TDD**: Design tests first, then implement.
+- **Test Pyramid (Isolation)**: Unit and integration tests both follow this. Start with smallest functions, stub already-tested dependencies when testing higher layers.
+- **Controller tests**: Focus on input validation and output shape, not business logic.
+- **E2E tests**: Cover critical happy paths and selective business-critical failures. Skip what's already covered by unit/integration.
+- **Test coverage**: Prioritize meaningful coverage over percentage targets. Cover critical paths and edge cases thoroughly.
+- **Stub loggers**: Keep test output noise-free. Use logger calls as test evidence when needed.
 
-  ## Before starting ANY work (workflow):
-  1. Confirm understanding of current state
-  2. Reference this policy
-  3. Analyze feature dependencies and propose ground-up build order
-  4. Select appropriate agent(s) for the task(s)
-  5. Plan incremental approach prioritizing dependency-free components
-  6. Use TODO comments only for legitimate missing feature dependencies with ticket references
-  7. Always use context7 when I need code generation, setup or configuration steps, or library/API documentation. This means you should automatically use the Context7 MCP tools to resolve library id and get library docs without me having to explicitly ask.
-  8. Utilize MCP tools for accessing databases and browsers to investigate, iterate and resolve.
+## Error Handling
 
-  ## Unit Tests, Integration Tests and E2E tests strategy
-  We use the pyramid layered approach following the **Solitary Unit Testing** pattern.
-  ### Unit Tests
-   - test the smallest functions
-   - test services (mock smaller functions used that are already unit tested)
-   - test commands (mock services and smaller functionat that are already unit tested)
-   - test queries (mock what is already unit tested)
-   - test gql resolvers (intput/output) as internal calls should have been already unit tested with any of the prev mentioned
-   - test gql queries (intput/output) as internal calls should have been already unit tested with any of the prev mentioned
-   - test REST API controller/actions input/output as internal calls should have been already unit tested with any of the prev mentioned
+- **Throw early, catch late**
+- **Domain Errors**: Create specific exception classes (e.g., `UserNotFoundError`, `InsufficientBalanceError`) - no generic throws.
+- **Traceable exceptions**: Include relevant data (IDs, context) for debugging.
+- **Let errors bubble**: Handle at appropriate boundaries (controllers, UI), not deep in business logic.
 
-  ### Integration Tests
-   - focus on database ops and other internal integrations (feel free to mock things that are already unit tested)
-   - should be self contained and not depend on real production data or production seeders.
+## Decision Making
 
-  ### E2E Tests
-  As E2E tests are expensive we are more selective about them.
-  - focus on happy critical business paths
-  - include selective business critical failure paths
-  - exclude paths are covered by unit tests and integration tests
+- **< 90% certain? Ask.** Use interview tool.
+- **New library/package?** Present pros/cons first, get approval.
+- **Minimize assumptions**: When unsure, ask. We solve together.
 
-  ## Errors and Exceptions
-  - Prefer Domain Exceptions instead of plain errors where applicable
-  - Exceptions should include the appropriate data required to make them traceable, easy to understand, resolve and debug.
-  - Keep test environment noise-free by stubbing the logger and use the logger.error, logger.info, logger.warn as evidence in the test
+## Performance & Reliability
 
-  ## AGENT SELECTION GUIDELINES ===
-  When selecting agents for tasks, use these domain-specific guidelines:
+- **N+1 awareness**: Always consider query patterns. Use eager loading or batching.
+- **Pagination**: Default on all list endpoints.
+- **Idempotency**: Design APIs and jobs to be safely retryable.
 
-  **Code Quality & Architecture:**
-  - code-reviewer: Code review and quality assessment
-  - architect-reviewer: Architecture and design pattern evaluation  
-  - refactoring-specialist: Code refactoring and cleanup
+## Pre-Commit Checklist
 
-  **Testing & Quality Assurance:**
-  - qa-expert: Test strategy and quality validation
-  - test-automator: Test implementation and automation
-  - accessibility-tester: Accessibility compliance testing
-  - performance-engineer: Performance optimization and testing
+- [ ] Tests pass
+- [ ] No TS errors/warnings
+- [ ] No console.logs or debug code
+- [ ] Domain errors used (no generic throws)
+- [ ] No circular dependencies
+- [ ] Module boundaries respected
+- [ ] Migrations included if schema changed
 
-  **TypeScript & Frontend Development:**
-  - typescript-pro: TypeScript development and type safety
-  - react-specialist: React component development
-  - nextjs-developer: Next.js application development
+## Stack-Specific
 
-  **NestJS & Backend Architecture:**
-  - nestjs-core-expert: Core NestJS architecture, modules, providers, and dependency injection
-  - nestjs-cqrs-expert: CQRS pattern, commands, queries, events, sagas, event sourcing, and workflow orchestration
-  - nestjs-eventemitter2-expert: Event-driven architecture and domain events
-  - nestjs-passport-expert: Authentication and authorization with Passport.js strategies (JWT, OAuth, sessions, GraphQL auth guards)
-  - nestjs-unit-test-expert: Unit testing for NestJS components with Jest and TestingModule
-  - nestjs-database-expert: Database integration with TypeORM, Prisma, Sequelize, and Mongoose
-  - nestjs-typeorm-expert: TypeORM Data Mapper pattern, custom repositories, mappers, @Transactional() decorator, tree entities, and testing
-  - objection-orm-expert: Objection.js ORM with TypeScript focus covering model definition with jsonSchema validation, relation types (HasMany, BelongsToOne, ManyToMany, HasOne, HasOneThrough), query building with Knex.js integration, eager loading (withGraphFetched vs withGraphJoined), graph operations (insertGraph, upsertGraph with #ref/#id), transaction management, lifecycle hooks ($beforeInsert, $afterUpdate, etc.), snake_case to camelCase conversion, raw queries, JSON/JSONB queries, custom query builders, modifiers, and production patterns. Handles complex hierarchical data operations and provides type-safe database access patterns.
-  - nestjs-configuration-expert: Configuration management and environment variables
-  - nestjs-validation-expert: Input validation, DTOs, and data transformation
-  - nestjs-caching-expert: Caching strategies with Redis and in-memory cache
-  - nestjs-serialization-expert: Response serialization and data transformation
-  - nestjs-task-scheduling-expert: Cron jobs, intervals, and scheduled tasks
-  - nestjs-queues-expert: Background job processing with Bull/BullMQ
-  - nestjs-logger-expert: Logging with Winston, Pino, and built-in logger
-  - nestjs-security-expert: Security best practices (Helmet, CORS, CSRF, rate limiting)
-  - nestjs-file-upload-expert: File upload handling with Multer and cloud storage
-  - nestjs-streaming-expert: File streaming and large data handling
-  - nestjs-http-module-expert: External API integration with HttpModule
-  - nestjs-compression-expert: Response compression for performance
-  - nestjs-cookies-expert: Cookie management and secure cookie handling
-  - nestjs-session-expert: Session management with Redis and other stores
-  - nestjs-mvc-expert: Server-side rendering with template engines
-  - nestjs-versioning-expert: API versioning strategies
-  - nestjs-sse-expert: Server-Sent Events for real-time updates
+### TypeScript / NestJS / NextJS
+- Strict mode, no implicit any
+- Use dependency injection
+- Migrations for all schema changes
+- **NestJS**: Use class-validator + class-transformer pipes for validation/transformation
 
-  **NX Monorepo & Workspace Management:**
-  - nx-monorepo-expert: Expert in NX monorepo management for NestJS projects using @nx/nest plugin (latest version). Specializes in workspace initialization (npx create-nx-workspace --preset=nest, nx add @nx/nest), application and library generation (apps, buildable libs, publishable libs with custom import paths), complete NestJS scaffolding (application, library, module, controller, service, resource, pipe, guard, interceptor, middleware, filter, decorator, provider, gateway, resolver, class, interface), dependency graph management (nx graph, project visualization), affected commands for CI/CD optimization (nx affected -t build/test/lint, nx run-many), project removal and migration, tag-based boundaries and @nx/enforce-module-boundaries lint rules (scope and type tags, constraint enforcement), caching strategies (local and remote Nx Replay), monorepo structure best practices (feature-based organization, data-access patterns, ui/util/model library types, 80/20 apps-to-libs ratio), executors configuration (build, serve, test, lint in project.json), project graph visualization (nx graph with task dependencies), VSCode debugging setup, Docker deployment with @nx/node:setup-docker, CLI plugin configuration (transformers for Swagger, etc.), and enterprise-scale monorepo patterns. Always enforces module boundaries and architectural best practices including proper library type classification (feature, data-access, ui, shell, utils, model), scope-based organization, public API enforcement via index.ts, and circular dependency prevention.
+### React / React Native
+- Functional components + hooks
+- Colocate related code
 
-  **qBittorrent Integration:**
-  - qbittorrent-api-expert: Expert in qBittorrent Web API (v4.1+) integration using @ctrl/qbittorrent TypeScript library (v9.9+). Specializes in both raw API endpoints and normalized library methods including getAllData(), getTorrent(), pauseTorrent(), resumeTorrent(), addTorrent(), removeTorrent(). Covers authentication (cookie-based SID, automatic login), application management (preferences, settings, version info), torrent management (add, delete, pause, resume, files, properties, categories, tags, trackers), transfer info (speeds, limits, quotas), RSS feed management (feeds, rules, article matching), search functionality (plugins, queries), logging (main log, peer log), and sync endpoints. Provides production-ready solutions for qBittorrent automation with type-safe implementations, normalized functions for torrent client interoperability, state management (export/import), error handling, rate limiting, and real-time updates.
+### Flutter
+- **Riverpod** for state management
 
-  **Apollo GraphQL & Client:**
-  - apollo-client-setup-expert: Apollo Client setup, configuration, ApolloProvider, link configuration, cache setup, and authentication
-  - apollo-queries-expert: Apollo Client queries including useQuery, useLazyQuery, query options, polling, and refetching
-  - apollo-mutations-expert: Apollo Client mutations including useMutation, optimistic responses, and cache updates
-  - apollo-caching-expert: Apollo Client caching including InMemoryCache configuration, cache policies, field policies, and cache persistence
-  - apollo-subscriptions-expert: Apollo Client subscriptions including useSubscription, WebSocket setup, and real-time updates
-  - apollo-testing-expert: Testing Apollo Client applications with MockedProvider, query/mutation testing, and mocking strategies
+## Standards
 
-  **Infrastructure & DevOps:**
-  - devops-engineer: Deployment and CI/CD processes
-  - cloud-architect: Cloud infrastructure design
-  - kubernetes-specialist: Container orchestration
-
-  **Security:**
-  - security-engineer: Security implementation and best practices
-  - security-auditor: Security assessment and compliance
-  - penetration-tester: Security vulnerability testing
-
-  **Debugging & Problem Solving:**
-  - debugger: Code debugging and issue resolution
-  - error-detective: Error investigation and root cause analysis
-  - error-coordinator: Error handling coordination across systems
-
-  **Project Management & Orchestration:**
-  - multi-agent-coordinator: Complex workflows requiring multiple agents
-  - workflow-orchestrator: Process design and workflow management
-  - task-distributor: Task planning and distribution
-
-  **Documentation & Communication:**
-  - documentation-engineer: Technical documentation creation
-  - technical-writer: Clear technical writing and communication
-  - api-documenter: API documentation and specifications
-
-  **Business & Product:**
-  - business-analyst: Business requirements and analysis
-  - product-manager: Product strategy and prioritization
-  - ux-researcher: User experience research and design
-  - legal-advisor: Compliance and regulatory requirements
-
-  ## PLANNING STRATEGY REQUIREMENTS
-  - ALWAYS prioritize foundational components first
-  - MINIMIZE TODOs - build actual functionality instead of leaving notes
-  - MANDATORY build order: data_models → utilities → core_services → business_logic → ui_components → integrations
-  - USE dependency-aware incremental development approach
-  - BUILD in small, testable increments (1-2 hour max per iteration)
-
-  ## PROJECT DEFAULTS
-  **TypeScript Standards:**
-  - strict: true (non-negotiable)
-  - no_any_tolerance: minimal (only for catch blocks and extreme edge cases)
-  - warning_tolerance: zero (fix all warnings)
-
-  **Testing Requirements:**
-  - Framework preference: jest or vitest
-  - Minimum coverage: 80% (enforced)
-  - SEPARATE unit and integration test suites:
-    - Unit tests: isolated, fast, mock external dependencies
-    - Integration tests: test component interactions, use real dependencies
-    - NEVER mix unit and integration test patterns
-
-  # QUALITY GATES (ALL MUST PASS)
-  ✅ No TypeScript errors
-  ✅ All tests passing
-  ✅ Coverage >= 80%
-  ✅ No disabled warnings
-  ✅ No deprecated APIs
-  ✅ Minimal TODOs with proper justification
-  ✅ Dependencies built before dependents
-  ✅ Code reviewed by appropriate agent
-  ✅ Working codebase state
-
-  **FAILURE TO MEET QUALITY GATES = WORK IS NOT COMPLETE**
+- Structured logging
+- Environment variables for config/secrets
+- Conventional commits

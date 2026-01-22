@@ -16,7 +16,20 @@
       "Bash(done)",
       "WebFetch(domain:nx.dev)",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:vincit.github.io)"
+      "WebFetch(domain:vincit.github.io)",
+      "Bash(go mod tidy:*)",
+      "Bash(go build:*)",
+      "Bash(./ccd version:*)",
+      "Bash(./ccd:*)",
+      "Bash(./ccd/ccd:*)",
+      "Bash(go test:*)",
+      "Skill(tdd)",
+      "Bash(tree:*)",
+      "Bash(make build:*)",
+      "Bash(../deploy version)",
+      "Bash(./deploy:*)",
+      "Bash(git rm:*)",
+      "Bash(git reset:*)"
     ],
     "deny": [],
     "ask": []

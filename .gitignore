@@ -1,0 +1,24 @@
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+._*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.sublime-*
+
+# Editor backups
+*.bak
+*.orig
+
+# Logs
+*.log
+
+# Generated
+config.yaml
+deploy
