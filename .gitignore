@@ -12,6 +12,9 @@ Desktop.ini
 *~
 *.sublime-*
 
+# Claude Code
+.claude/
+
 # Editor backups
 *.bak
 *.orig
@@ -21,4 +24,3 @@ Desktop.ini
 
 # Generated
 config.yaml
-deploy
