@@ -162,7 +162,7 @@ func runDeploy(cmd *cobra.Command, args []string) error {
 	if cfg.Backup.Enabled {
 		fmt.Println()
 		output.PrintInfo("Creating backup snapshot...")
-		snapshot, err := backup.CreateSnapshot(targetDir, cfg.Backup.Dir)
+		snapshot, err := backup.CreateSnapshot(targetDir, cfg.Backup.Dir, cfg.Mappings)
 		if err != nil {
 			output.PrintWarning(fmt.Sprintf("Failed to create backup: %v", err))
 		} else {

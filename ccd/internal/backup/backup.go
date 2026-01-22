@@ -9,6 +9,8 @@ import (
 	"sort"
 	"strings"
 	"time"
+
+	"github.com/pt/ccd/internal/config"
 )
 
 const (
@@ -24,7 +26,7 @@ type Snapshot struct {
 	Size      int64
 }
 
-func CreateSnapshot(sourceDir, backupDir string) (*Snapshot, error) {
+func CreateSnapshot(targetDir, backupDir string, mappings []config.Mapping) (*Snapshot, error) {
 	if err := os.MkdirAll(backupDir, 0755); err != nil {
 		return nil, fmt.Errorf("failed to create backup directory: %w", err)
 	}
@@ -42,55 +44,100 @@ func CreateSnapshot(sourceDir, backupDir string) (*Snapshot, error) {
 	zipWriter := zip.NewWriter(zipFile)
 	defer zipWriter.Close()
 
-	err = filepath.Walk(sourceDir, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
+	manifest := NewManifest(timestamp, targetDir)
 
-		relPath, err := filepath.Rel(sourceDir, path)
-		if err != nil {
-			return err
+	// Determine which paths to backup
+	var pathsToBackup []string
+	if len(mappings) > 0 {
+		// Scoped backup: only mapped target paths
+		for _, m := range mappings {
+			targetPath := filepath.Join(targetDir, m.Target)
+			if _, err := os.Stat(targetPath); err == nil {
+				pathsToBackup = append(pathsToBackup, m.Target)
+			}
 		}
+	} else {
+		// Legacy: backup everything
+		pathsToBackup = []string{""}
+	}
 
-		if relPath == "." {
+	for _, basePath := range pathsToBackup {
+		walkRoot := filepath.Join(targetDir, basePath)
+
+		err = filepath.Walk(walkRoot, func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+
+			relPath, err := filepath.Rel(targetDir, path)
+			if err != nil {
+				return err
+			}
+
+			if relPath == "." {
+				return nil
+			}
+
+			header, err := zip.FileInfoHeader(info)
+			if err != nil {
+				return err
+			}
+
+			header.Name = relPath
+			if info.IsDir() {
+				header.Name += "/"
+			} else {
+				header.Method = zip.Deflate
+				manifest.AddFile(relPath, info.Size())
+			}
+
+			writer, err := zipWriter.CreateHeader(header)
+			if err != nil {
+				return err
+			}
+
+			if !info.IsDir() {
+				file, err := os.Open(path)
+				if err != nil {
+					return err
+				}
+				defer file.Close()
+				_, err = io.Copy(writer, file)
+				if err != nil {
+					return err
+				}
+			}
+
 			return nil
-		}
+		})
 
-		header, err := zip.FileInfoHeader(info)
 		if err != nil {
-			return err
+			os.Remove(zipPath)
+			return nil, fmt.Errorf("failed to create backup: %w", err)
 		}
+	}
 
-		header.Name = relPath
-		if info.IsDir() {
-			header.Name += "/"
-		} else {
-			header.Method = zip.Deflate
-		}
-
-		writer, err := zipWriter.CreateHeader(header)
-		if err != nil {
-			return err
-		}
-
-		if !info.IsDir() {
-			file, err := os.Open(path)
-			if err != nil {
-				return err
-			}
-			defer file.Close()
-			_, err = io.Copy(writer, file)
-			if err != nil {
-				return err
-			}
-		}
-
-		return nil
-	})
-
+	// Write manifest.json to zip
+	manifestData, err := manifest.ToJSON()
 	if err != nil {
 		os.Remove(zipPath)
-		return nil, fmt.Errorf("failed to create backup: %w", err)
+		return nil, fmt.Errorf("failed to create manifest: %w", err)
+	}
+
+	manifestWriter, err := zipWriter.Create(ManifestFilename)
+	if err != nil {
+		os.Remove(zipPath)
+		return nil, fmt.Errorf("failed to write manifest: %w", err)
+	}
+	if _, err := manifestWriter.Write(manifestData); err != nil {
+		os.Remove(zipPath)
+		return nil, fmt.Errorf("failed to write manifest: %w", err)
+	}
+
+	// Close zip to flush
+	if err := zipWriter.Close(); err != nil {
+		os.Remove(zipPath)
+		return nil, fmt.Errorf("failed to finalize backup: %w", err)
 	}
 
 	info, _ := os.Stat(zipPath)
@@ -159,15 +206,50 @@ func RestoreSnapshot(snapshotPath, targetDir string) error {
 	}
 	defer reader.Close()
 
-	if err := os.RemoveAll(targetDir); err != nil {
-		return fmt.Errorf("failed to clear target directory: %w", err)
+	// Check for manifest
+	var manifest *BackupManifest
+	for _, file := range reader.File {
+		if file.Name == ManifestFilename {
+			rc, err := file.Open()
+			if err != nil {
+				return fmt.Errorf("failed to read manifest: %w", err)
+			}
+			data, err := io.ReadAll(rc)
+			rc.Close()
+			if err != nil {
+				return fmt.Errorf("failed to read manifest: %w", err)
+			}
+			manifest, err = ParseManifest(data)
+			if err != nil {
+				return fmt.Errorf("failed to parse manifest: %w", err)
+			}
+			break
+		}
 	}
 
-	if err := os.MkdirAll(targetDir, 0755); err != nil {
-		return fmt.Errorf("failed to create target directory: %w", err)
+	if manifest != nil {
+		// Scoped restore: only restore files listed in manifest
+		// First, delete existing files that are in the manifest
+		for _, entry := range manifest.Files {
+			destPath := filepath.Join(targetDir, entry.Path)
+			os.Remove(destPath) // Ignore error if doesn't exist
+		}
+	} else {
+		// Legacy restore: nuke everything
+		if err := os.RemoveAll(targetDir); err != nil {
+			return fmt.Errorf("failed to clear target directory: %w", err)
+		}
+		if err := os.MkdirAll(targetDir, 0755); err != nil {
+			return fmt.Errorf("failed to create target directory: %w", err)
+		}
 	}
 
 	for _, file := range reader.File {
+		// Skip manifest file
+		if file.Name == ManifestFilename {
+			continue
+		}
+
 		destPath := filepath.Join(targetDir, file.Name)
 
 		if !strings.HasPrefix(destPath, filepath.Clean(targetDir)+string(os.PathSeparator)) {
