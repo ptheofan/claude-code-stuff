@@ -1,110 +1,114 @@
-# [Feature/System Name] - Technical Design Document
+# [Feature Name] - Technical Design Document
 
 **Author:** [Name]  
 **Date:** [YYYY-MM-DD]  
-**Status:** Draft | In Review | Approved
+**Status:** Draft | In Review | Approved  
+**Feature Spec:** `./docs/features/<NNN>-<feature-name>.feature.md`
 
 ---
 
-## 1. Problem Statement
+## 1. Overview
 
-What problem are we solving? Why now?
+Brief summary of what we're building and why.
 
-## 2. Goals & Non-Goals
+## 2. Architecture
 
-### Goals
-- 
+### 2.1 Affected Modules
 
-### Non-Goals
-- 
+| Module | Changes |
+|--------|---------|
+|        |         |
 
-## 3. Proposed Solution
+### 2.2 Component Diagram
 
-High-level overview of the approach.
-
-### 3.1 Architecture
-
-How does this fit into Clean Architecture? Which layers are affected?
-
-```
-[Diagram or description of component relationships]
+```mermaid
+graph TD
+    A[Component A] --> B[Component B]
 ```
 
-### 3.2 Module Boundaries
+### 2.3 Module Boundaries
 
-Which modules are involved? What APIs are exposed between them?
+| Module | Exposes (Public API) | Consumes |
+|--------|---------------------|----------|
+|        |                     |          |
 
-| Module | Exposes | Consumes |
-|--------|---------|----------|
-|        |         |          |
+## 3. Data Model
 
-### 3.3 Data Model
-
-Key entities, types, and relationships. Schema definitions only.
+### 3.1 Entities
 
 ```typescript
-// Example: entity type
-interface User {
+interface Entity {
   id: string;
-  email: string;
-  createdAt: Date;
+  // ...
 }
 ```
 
-### 3.4 API Design
+### 3.2 Database Changes
 
-Endpoints/methods, inputs, outputs. Signatures only — no implementation.
+- [ ] New tables
+- [ ] Altered tables
+- [ ] Migrations required
+
+## 4. API Design
+
+### 4.1 Endpoints / Methods
 
 ```typescript
-// Example: interface or type definition
-interface CreateUserInput {
-  email: string;
+// POST /api/resource
+interface CreateResourceInput {
   name: string;
 }
 
-interface CreateUserOutput {
+interface CreateResourceOutput {
   id: string;
   createdAt: Date;
 }
 ```
 
-### 3.5 Error Handling
+### 4.2 Authentication
 
-Domain errors to introduce:
+- 
+
+## 5. Error Handling
+
+### Domain Errors
 
 | Error Class | When Thrown | Data Included |
 |-------------|-------------|---------------|
 |             |             |               |
 
-## 4. Alternatives Considered
+## 6. External Integrations
 
-| Option | Pros | Cons | Verdict |
-|--------|------|------|---------|
-|        |      |      |         |
+| Service | Purpose | Centralized In |
+|---------|---------|----------------|
+|         |         |                |
 
-## 5. Testing Strategy
+## 7. Performance Considerations
 
-### Unit Tests
+- [ ] N+1 queries addressed
+- [ ] Pagination implemented
+- [ ] Caching strategy defined
+
+## 8. Security Considerations
+
 - 
 
-### Integration Tests
-- 
+## 9. Migration / Rollout Plan
 
-### E2E Tests (if applicable)
-- 
-
-## 6. Migration / Rollout Plan
-
-How do we ship this safely?
-
-- [ ] Feature flag?
+- [ ] Feature flag needed?
 - [ ] Database migrations?
-- [ ] Backward compatibility?
+- [ ] Backwards compatible?
+- [ ] Rollback plan?
 
-## 7. Open Questions
+## 10. Open Questions
 
-- 
+| # | Question | Answer |
+|---|----------|--------|
+| 1 |          |        |
 
-## 8. References
+---
 
-- Related docs, tickets, prior art
+## Sign-off
+
+- [ ] Architecture reviewed
+- [ ] Ready for Test Design (`/test-design`)

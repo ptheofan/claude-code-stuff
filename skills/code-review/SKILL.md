@@ -1,123 +1,99 @@
 ---
 name: code-review
-description: Code review against project standards. Use when reviewing PRs, checking code quality, or validating implementations against architecture rules.
+description: Review code changes using git diff against quality standards. Use after /coder to validate implementation quality before merging.
 ---
 
-# Code Review Checklist
+# Code Review
 
-Review code against CLAUDE.md standards and project conventions.
+Review code changes against project standards and best practices.
 
-## Architecture Review
+## Process
 
-### Clean Architecture
-- [ ] Dependencies flow downward only
-- [ ] Events/callbacks emit upward
-- [ ] No circular dependencies
+1. **Get the diff** - Run `git diff` or `git diff --staged` to see changes
+2. **Review against standards** - Check each item in the checklist
+3. **Report findings** - Summarize issues and suggestions
+4. **Request changes or approve**
 
-### Module Boundaries
-- [ ] No direct imports of another module's entities
-- [ ] No direct imports of another module's repositories
-- [ ] Only exposed APIs used (services, DTOs, interfaces)
+## Review Checklist
 
-### Centralized Integrations
-- [ ] External API calls go through dedicated service/class
-- [ ] No scattered HTTP calls throughout codebase
+### Architecture
+- [ ] **Clean Architecture** - Dependencies flow downward only
+- [ ] **Module boundaries** - No direct imports of another module's internals
+- [ ] **Centralized integrations** - External calls through dedicated services
+- [ ] **No circular dependencies**
 
-## Code Quality
+### TypeScript Quality
+- [ ] **No `any`** - Proper types used
+- [ ] **No `@ts-ignore`** - Issues fixed, not suppressed
+- [ ] **No suppressed warnings**
+- [ ] **Types/interfaces in separate files**
 
-### TypeScript
-- [ ] No `any` types (except catch blocks when necessary)
-- [ ] No `@ts-ignore` or `@ts-expect-error` without justification
-- [ ] No suppressed warnings
-- [ ] Strict mode compliant
-- [ ] Types/interfaces in separate files
+### Code Quality
+- [ ] **SOLID** - Single responsibility, proper abstractions
+- [ ] **KISS** - Simple, readable solutions
+- [ ] **DRY** - No code duplication
+- [ ] **Meaningful names** - Clear variable/function names
+- [ ] **Minimal comments** - Only for complex/non-obvious logic
+- [ ] **No console.logs** - Debug code removed
 
-### Simplicity (KISS)
-- [ ] Code is readable without mental gymnastics
-- [ ] No over-engineering or premature abstraction
-- [ ] Clear variable and function names
-- [ ] No clever one-liners that sacrifice readability
+### Error Handling
+- [ ] **Domain Errors** - Specific exception classes used
+- [ ] **Traceable data** - Errors include IDs/context for debugging
+- [ ] **Errors bubble** - Handled at appropriate boundaries
 
-### Comments
-- [ ] Only present for complex/non-obvious logic
-- [ ] No commented-out code
-- [ ] No redundant comments explaining obvious code
-
-## Error Handling
-
-### Domain Errors
-- [ ] Specific exception classes used (not generic Error/throw)
-- [ ] Exceptions include traceable data (IDs, context)
-- [ ] Errors bubble to appropriate boundaries
-
-### Example Check
-```typescript
-// ❌ Bad
-throw new Error('User not found');
-
-// ✅ Good
-throw new UserNotFoundException(userId);
-```
-
-## Testing
-
-### Test Pyramid
-- [ ] Unit tests for smallest functions first
-- [ ] Higher-level tests stub already-tested dependencies
-- [ ] Integration tests are self-contained (no production data)
-
-### Controller/Resolver Tests
-- [ ] Focus on input validation
-- [ ] Focus on output shape
-- [ ] NOT testing business logic (that's service layer)
-
-### Test Quality
-- [ ] Meaningful coverage (not percentage gaming)
-- [ ] Edge cases covered
-- [ ] Error scenarios tested
-- [ ] Logger stubbed (noise-free output)
-
-## Performance & Reliability
+### Testing
+- [ ] **Tests exist** - New code has corresponding tests
+- [ ] **Test pyramid followed** - Unit → Integration → E2E
+- [ ] **Meaningful coverage** - Critical paths covered
+- [ ] **Controller tests** - Focus on input/output, not business logic
+- [ ] **Logger stubbed** - Test output is noise-free
 
 ### Database
-- [ ] N+1 queries identified and fixed
-- [ ] Eager loading used appropriately
-- [ ] Pagination on list endpoints
+- [ ] **N+1 awareness** - Queries optimized
+- [ ] **Migrations included** - Schema changes have migrations
+- [ ] **Pagination** - List endpoints paginated
 
-### APIs
-- [ ] Idempotent where applicable
-- [ ] Proper error responses
+### Performance & Reliability
+- [ ] **Idempotency** - APIs safely retryable where applicable
 
-## Pre-Merge Checklist
-
-Before approving:
-
-- [ ] Tests pass
-- [ ] No TS errors/warnings
-- [ ] No console.logs or debug code
-- [ ] Domain errors used
-- [ ] No circular dependencies
-- [ ] Module boundaries respected
-- [ ] Migrations included if schema changed
-- [ ] No deprecated code/APIs
-
-## Review Response Template
+## Review Output Format
 
 ```markdown
-## Summary
-[One-line summary of the change]
+## Code Review: [Feature/PR Name]
 
-## ✅ Good
+### Summary
+[One-line summary]
+
+### ✅ Good
 - [What's done well]
 
-## ⚠️ Concerns
-- [Issues that need addressing]
+### ❌ Issues (Must Fix)
+- [ ] [Critical issues that block merge]
 
-## 💡 Suggestions
-- [Optional improvements]
+### ⚠️ Suggestions (Optional)
+- [ ] [Improvements that would be nice]
 
-## Verdict
-[ ] ✅ Approve
-[ ] 🔄 Request changes
-[ ] 💬 Comment only
+### Verdict
+- [ ] ✅ Approved
+- [ ] 🔄 Request changes
 ```
+
+## Commands
+
+```bash
+# Review staged changes
+git diff --staged
+
+# Review all uncommitted changes
+git diff
+
+# Review specific file
+git diff path/to/file.ts
+
+# Review against main branch
+git diff main...HEAD
+```
+
+## Next Step
+
+After code review passes → `/qa`
