@@ -1,6 +1,7 @@
 ---
 name: test-design
-description: Design test cases for unit, integration, and E2E testing based on TDD. Use after /tdd to prepare test specifications before implementation.
+version: 1.0.0
+description: Design test cases for unit, integration, and E2E testing based on TDD. This skill should be used when the user asks to "design test cases", "plan tests", "create test specifications", "define test strategy", "prepare test plan", or needs to create comprehensive test specifications that will drive TDD implementation. Use after /tdd or /engineer, before /coder.
 ---
 
 # Test Design
@@ -83,7 +84,7 @@ For each test case, specify:
 
 ## Output
 
-Save to `./docs/features/<NNN>-<feature-name>.test.md` using template in `references/TEMPLATE.md`.
+Save to `./docs/features/<NNN>-<feature-name>.test.md` using template in `assets/TEMPLATE.md`.
 
 ## Next Step
 

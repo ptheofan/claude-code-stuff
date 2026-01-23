@@ -1,6 +1,7 @@
 ---
 name: nestjs-testing
-description: NestJS testing patterns using Test Pyramid with Solitary Unit Testing. Use when writing unit tests, integration tests, or E2E tests for NestJS applications.
+version: 1.0.0
+description: NestJS testing patterns using Test Pyramid with Solitary Unit Testing. This skill should be used when the user asks to "write tests", "create unit tests", "add integration tests", "write E2E tests", "test NestJS service", "test NestJS controller", "mock dependencies in tests", or needs guidance on Jest testing patterns, test isolation, stubbing repositories, or NestJS TestingModule setup.
 ---
 
 # NestJS Testing Patterns

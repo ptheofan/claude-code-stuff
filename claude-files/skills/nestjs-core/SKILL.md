@@ -1,6 +1,7 @@
 ---
 name: nestjs-core
-description: NestJS development patterns including TypeORM (Data Mapper), CQRS, authentication, validation, and module architecture. Use when building NestJS features, services, modules, or APIs.
+version: 1.0.0
+description: NestJS development patterns including TypeORM (Data Mapper), CQRS, authentication, validation, and module architecture. This skill should be used when the user asks to "create NestJS module", "add NestJS service", "build NestJS API", "setup TypeORM repository", "implement CQRS handler", "add command handler", "create query handler", "setup JWT authentication", "add validation pipe", "create domain exception", or needs guidance on NestJS module boundaries, entity mapping, or dependency injection patterns.
 ---
 
 # NestJS Core Patterns

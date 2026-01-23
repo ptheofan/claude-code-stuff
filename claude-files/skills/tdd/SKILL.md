@@ -1,6 +1,7 @@
 ---
 name: tdd
-description: Technical Design Document creation through analysis and user interview. Use after /feature to create implementation blueprint with types, APIs, and architecture decisions.
+version: 1.0.0
+description: Technical Design Document creation through analysis and user interview. This skill should be used when the user asks to "create TDD", "write technical design", "design architecture", "plan implementation", "define API contracts", "design data model", "create technical spec", or needs to transform feature requirements into an implementation blueprint with types, interfaces, and architecture decisions. Use after /feature, before /breakdown or /test-design.
 ---
 
 # Technical Design Document
@@ -84,7 +85,7 @@ Apply these from CLAUDE.md:
 
 ## Output
 
-Save to `./docs/features/<NNN>-<feature-name>.tdd.md` using template in `references/TEMPLATE.md`.
+Save to `./docs/features/<NNN>-<feature-name>.tdd.md` using template in `assets/TEMPLATE.md`.
 
 ## Content Rules
 

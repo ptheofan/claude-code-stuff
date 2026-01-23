@@ -1,6 +1,7 @@
 ---
 name: qa
-description: Quality assurance validation that implementation matches feature requirements and scope. Use after /code-review to verify feature completeness.
+version: 1.0.0
+description: Quality assurance validation that implementation matches feature requirements and scope. This skill should be used when the user asks to "verify feature", "QA the implementation", "check requirements coverage", "validate acceptance criteria", "ensure feature completeness", or needs to confirm that all user stories and acceptance criteria from the feature spec are satisfied. Final step before release, use after /code-review.
 ---
 
 # QA - Quality Assurance

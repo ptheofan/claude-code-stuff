@@ -1,6 +1,7 @@
 ---
 name: apollo-graphql
-description: Apollo Client patterns for React applications including setup, queries, mutations, caching, subscriptions, and testing. Use when working with GraphQL in React/React Native.
+version: 1.0.0
+description: Apollo Client patterns for React applications including setup, queries, mutations, caching, subscriptions, and testing. This skill should be used when the user asks to "setup Apollo Client", "write GraphQL query", "create mutation", "configure Apollo cache", "add GraphQL subscription", "test Apollo components", "use useQuery", "use useMutation", or needs guidance on Apollo error handling, optimistic updates, or cache normalization in React/React Native.
 ---
 
 # Apollo GraphQL Patterns

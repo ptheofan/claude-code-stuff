@@ -1,6 +1,7 @@
 ---
 name: engineer
-description: Lightweight technical design for sub-features after /breakdown. Focus on execution details within parent TDD architecture decisions.
+version: 1.0.0
+description: Lightweight technical design for sub-features after /breakdown. This skill should be used when the user asks to "design sub-feature", "create sub-feature TDD", "detail implementation approach", or needs to define types, function contracts, and domain errors for a specific sub-feature slice while staying within the parent TDD's architecture decisions. Use after /breakdown, before /test-design.
 ---
 
 # Sub-Feature Technical Design
@@ -93,7 +94,7 @@ Apply these from CLAUDE.md:
 
 ## Output
 
-Save to `./docs/features/<NNN><suffix>-<sub-name>.tdd.md` using template in `references/TEMPLATE.md`.
+Save to `./docs/features/<NNN><suffix>-<sub-name>.tdd.md` using template in `assets/TEMPLATE.md`.
 
 ## Content Rules
 

@@ -1,6 +1,7 @@
 ---
 name: breakdown
-description: Analyze a TDD and break it into implementable sub-features. Use after /tdd to create a phased implementation plan with clear dependencies.
+version: 1.0.0
+description: Analyze a TDD and break it into implementable sub-features. This skill should be used when the user asks to "break down feature", "split into sub-features", "create implementation phases", "plan feature rollout", "decompose TDD", "identify dependencies", or when a feature is too large for single implementation and needs to be sliced into independently testable and deployable pieces. Use after /tdd, before /engineer.
 ---
 
 # Feature Breakdown
@@ -109,7 +110,7 @@ Each sub-feature MUST be:
 
 ## Output
 
-Save to `./docs/features/<NNN>-<feature-name>.breakdown.md` using template in `references/TEMPLATE.md`.
+Save to `./docs/features/<NNN>-<feature-name>.breakdown.md` using template in `assets/TEMPLATE.md`.
 
 ## Content Rules
 

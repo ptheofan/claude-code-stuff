@@ -1,6 +1,7 @@
 ---
 name: coder
-description: Implement a feature using TDD approach. Reads TDD and test-design, creates implementation plan, writes tests first then code.
+version: 1.0.0
+description: Implement a feature using TDD approach. This skill should be used when the user asks to "implement feature", "start coding", "write the code", "build the feature", "implement TDD", or is ready to implement after test-design is complete. Reads feature spec, TDD, and test-design documents, then implements using red-green-refactor TDD methodology. Use after /test-design, before /code-review.
 ---
 
 # Coder

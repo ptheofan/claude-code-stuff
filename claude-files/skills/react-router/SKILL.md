@@ -1,6 +1,7 @@
 ---
 name: react-router
-description: React Router v7 patterns including routing, data loading, forms, actions, and error handling. Use when building routing, navigation, or data-fetching in React applications.
+version: 1.0.0
+description: React Router v7 patterns including routing, data loading, forms, actions, and error handling. This skill should be used when the user asks to "add routing", "create route", "setup React Router", "add loader", "create action", "handle form submission", "use useFetcher", "add error boundary", "implement navigation", "use useNavigate", "add route parameters", or needs guidance on file-based routing, deferred data loading, optimistic UI, or React Router testing patterns.
 ---
 
 # React Router Patterns

@@ -1,6 +1,7 @@
 ---
 name: code-review
-description: Review code changes using git diff against quality standards. Use after /coder to validate implementation quality before merging.
+version: 1.0.0
+description: Review code changes using git diff against quality standards. This skill should be used when the user asks to "review code", "check my changes", "validate implementation", "review PR", "code review", or needs to validate that implementation meets architecture, code quality, testing, and error handling standards before merging. Use after /coder, before /qa.
 ---
 
 # Code Review

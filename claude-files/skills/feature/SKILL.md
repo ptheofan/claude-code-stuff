@@ -1,6 +1,7 @@
 ---
 name: feature
-description: Feature discovery and specification through user interview. Use when exploring a new feature idea that needs scope definition, user stories, and acceptance criteria.
+version: 1.0.0
+description: Feature discovery and specification through user interview. This skill should be used when the user asks to "define a feature", "create feature spec", "write user stories", "explore requirements", "scope a feature", "start new feature", "define acceptance criteria", "document feature requirements", or mentions needing to understand what to build before implementation. First step in the workflow chain before /tdd.
 ---
 
 # Feature Discovery
@@ -75,7 +76,7 @@ Ask the user about:
 
 ## Output
 
-Save to `./docs/features/<NNN>-<feature-name>.feature.md` using template in `references/TEMPLATE.md`.
+Save to `./docs/features/<NNN>-<feature-name>.feature.md` using template in `assets/TEMPLATE.md`.
 
 ## Next Step
 
