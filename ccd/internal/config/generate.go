@@ -13,6 +13,10 @@ func GenerateDefault() string {
 # - ~/.config/claude-deploy/config.yaml
 # - ~/.claude-deploy/config.yaml
 
+# Source directory containing files to deploy
+# Relative to working directory
+source: claude-files
+
 # Target directory for deployment
 # Supports ~ for home directory
 target: ~/.claude

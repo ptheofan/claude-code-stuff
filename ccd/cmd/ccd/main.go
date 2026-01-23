@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -25,12 +26,24 @@ var (
 	flagList    bool
 )
 
+func getConfigPath() string {
+	execPath, err := os.Executable()
+	if err != nil {
+		execPath = os.Args[0]
+	}
+	return config.GetConfigOutputPath(execPath)
+}
+
 func main() {
+	configPath := getConfigPath()
+
 	rootCmd := &cobra.Command{
 		Use:   "ccd",
 		Short: "Claude Code Deploy - File synchronization tool",
-		Long:  "Deploy claude-code-stuff configuration to target directory with tree-view output and rollback support.",
-		RunE:  runDeploy,
+		Long: fmt.Sprintf(`Deploy claude-code-stuff configuration to target directory with tree-view output and rollback support.
+
+Config: %s`, configPath),
+		RunE: runDeploy,
 	}
 
 	rootCmd.Flags().BoolVar(&flagSync, "sync", false, "Remove files from destination that no longer exist in source")
@@ -42,11 +55,23 @@ func main() {
 	rollbackCmd := &cobra.Command{
 		Use:   "rollback [timestamp]",
 		Short: "Restore from a backup snapshot",
-		Long:  "Restore the target directory from a previous backup snapshot.",
-		RunE:  runRollback,
+		Long: fmt.Sprintf(`Restore the target directory from a previous backup snapshot.
+
+Config: %s`, configPath),
+		RunE: runRollback,
 	}
 	rollbackCmd.Flags().BoolVar(&flagList, "list", false, "List available snapshots")
 	rootCmd.AddCommand(rollbackCmd)
+
+	configCmd := &cobra.Command{
+		Use:   "config",
+		Short: "Show configuration file path",
+		Long:  "Display the full path to the configuration file being used.",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println(configPath)
+		},
+	}
+	rootCmd.AddCommand(configCmd)
 
 	versionCmd := &cobra.Command{
 		Use:   "version",
@@ -57,13 +82,16 @@ func main() {
 	}
 	rootCmd.AddCommand(versionCmd)
 
-	resetConfigCmd := &cobra.Command{
-		Use:   "reset-config",
-		Short: "Reset config.yaml to defaults",
-		Long:  "Reset config.yaml to default values with comprehensive comments. Overwrites existing config.",
-		RunE:  runResetConfig,
+	initCmd := &cobra.Command{
+		Use:   "init",
+		Short: "Initialize or reset config.yaml",
+		Long: fmt.Sprintf(`Initialize config.yaml with default values and comprehensive comments.
+If config already exists, it will be overwritten.
+
+Config: %s`, configPath),
+		RunE: runInit,
 	}
-	rootCmd.AddCommand(resetConfigCmd)
+	rootCmd.AddCommand(initCmd)
 
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
@@ -85,10 +113,12 @@ func runDeploy(cmd *cobra.Command, args []string) error {
 		output.PrintInfo("No config.yaml found, generating default...")
 		content := config.GenerateDefault()
 		if err := os.WriteFile(configPath, []byte(content), 0644); err != nil {
-			output.PrintWarning(fmt.Sprintf("Failed to generate config: %v", err))
-		} else {
-			fmt.Printf("  Created: %s\n\n", configPath)
+			output.PrintError(fmt.Sprintf("Failed to generate config: %v", err))
+			return err
 		}
+		fmt.Printf("  Created: %s\n", configPath)
+		fmt.Println("\nPlease review the configuration and run again.")
+		return nil
 	}
 
 	cfg, err := config.Load(execPath)
@@ -97,9 +127,15 @@ func runDeploy(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	sourceDir, err := os.Getwd()
+	workDir, err := os.Getwd()
 	if err != nil {
 		output.PrintError(fmt.Sprintf("Failed to get working directory: %v", err))
+		return err
+	}
+
+	sourceDir := filepath.Join(workDir, cfg.Source)
+	if _, err := os.Stat(sourceDir); os.IsNotExist(err) {
+		output.PrintError(fmt.Sprintf("Source directory does not exist: %s", sourceDir))
 		return err
 	}
 
@@ -114,6 +150,7 @@ func runDeploy(cmd *cobra.Command, args []string) error {
 	}
 
 	output.PrintMode(flagDryRun, flagSync)
+	fmt.Printf("Config: %s\n", output.Colorize(output.Blue, configPath))
 	output.PrintPaths(sourceDir, targetDir)
 
 	if flagSync && len(cfg.Mappings) == 0 {
@@ -271,26 +308,94 @@ func runRollback(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
-func runResetConfig(cmd *cobra.Command, args []string) error {
+func runInit(cmd *cobra.Command, args []string) error {
 	if flagNoColor {
 		output.DisableColors()
 	}
 
-	execPath, err := os.Executable()
-	if err != nil {
-		return &config.ExecutablePathError{Cause: err}
+	configPath := getConfigPath()
+	newContent := config.GenerateDefault()
+
+	// Check if config already exists
+	existingContent, err := os.ReadFile(configPath)
+	if err == nil {
+		// Config exists, show diff and prompt
+		if string(existingContent) == newContent {
+			output.PrintInfo("Config is already up to date")
+			fmt.Printf("  Path: %s\n", configPath)
+			return nil
+		}
+
+		fmt.Printf("Config file already exists: %s\n\n", configPath)
+		printDiff(string(existingContent), newContent)
+
+		if !prompt.Confirm("\nOverwrite existing config?", flagYes) {
+			output.PrintWarning("Aborted by user")
+			return nil
+		}
 	}
 
-	configPath := config.GetConfigOutputPath(execPath)
-
-	content := config.GenerateDefault()
-	if err := os.WriteFile(configPath, []byte(content), 0644); err != nil {
+	if err := os.WriteFile(configPath, []byte(newContent), 0644); err != nil {
 		return &config.ConfigWriteError{Path: configPath, Cause: err}
 	}
 
 	output.PrintSuccess(false)
-	fmt.Printf("  Reset: %s\n", configPath)
+	fmt.Printf("  Created: %s\n", configPath)
 	return nil
+}
+
+func printDiff(oldContent, newContent string) {
+	oldLines := splitLines(oldContent)
+	newLines := splitLines(newContent)
+
+	fmt.Println(output.Colorize(output.Blue, "Changes:"))
+
+	// Simple line-by-line diff
+	maxLines := len(oldLines)
+	if len(newLines) > maxLines {
+		maxLines = len(newLines)
+	}
+
+	inChange := false
+	for i := 0; i < maxLines; i++ {
+		var oldLine, newLine string
+		if i < len(oldLines) {
+			oldLine = oldLines[i]
+		}
+		if i < len(newLines) {
+			newLine = newLines[i]
+		}
+
+		if oldLine != newLine {
+			if !inChange {
+				fmt.Printf("\n  @@ line %d @@\n", i+1)
+				inChange = true
+			}
+			if oldLine != "" {
+				fmt.Printf("  %s\n", output.Colorize(output.Red, "- "+oldLine))
+			}
+			if newLine != "" {
+				fmt.Printf("  %s\n", output.Colorize(output.Green, "+ "+newLine))
+			}
+		} else {
+			inChange = false
+		}
+	}
+}
+
+func splitLines(s string) []string {
+	var lines []string
+	start := 0
+	for i := 0; i < len(s); i++ {
+		if s[i] == '\n' {
+			lines = append(lines, s[start:i])
+			start = i + 1
+		}
+	}
+	if start < len(s) {
+		lines = append(lines, s[start:])
+	}
+	return lines
 }
 
 func formatAge(t time.Time) string {

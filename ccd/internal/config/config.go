@@ -15,6 +15,7 @@ type BackupConfig struct {
 }
 
 type Config struct {
+	Source          string       `yaml:"source"`
 	Target          string       `yaml:"target"`
 	Mappings        []Mapping    `yaml:"mappings"`
 	IgnorePatterns  []string     `yaml:"ignore_patterns"`
@@ -25,6 +26,7 @@ type Config struct {
 
 func Default() *Config {
 	return &Config{
+		Source: "claude-files",
 		Target: "~/.claude",
 		IgnorePatterns: []string{
 			".DS_Store",
@@ -91,6 +93,11 @@ func Load(execPath string) (*Config, error) {
 
 	cfg.Target = ExpandPath(cfg.Target)
 	cfg.Backup.Dir = ExpandPath(cfg.Backup.Dir)
+
+	// Ensure Source has a default if not specified
+	if cfg.Source == "" {
+		cfg.Source = "claude-files"
+	}
 
 	return cfg, nil
 }
