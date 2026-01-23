@@ -1,43 +1,97 @@
 ---
 name: breakdown
-version: 1.0.0
-description: Analyze a TDD and break it into implementable sub-features. This skill should be used when the user asks to "break down feature", "split into sub-features", "create implementation phases", "plan feature rollout", "decompose TDD", "identify dependencies", or when a feature is too large for single implementation and needs to be sliced into independently testable and deployable pieces. Use after /tdd, before /engineer.
+version: 2.0.0
+description: Analyze feature and TDD to determine IF breakdown is needed. This skill should be used when the user asks to "break down feature", "split into sub-features", "check if breakdown needed", "analyze feature size", or after completing /tdd to determine next steps. Decides whether to proceed with sub-features (/engineer) or skip directly to /test-design. Use after /tdd.
 ---
 
 # Feature Breakdown
 
-Analyze a TDD and decompose it into smaller, independently implementable sub-features.
+Analyze feature and TDD to determine IF breakdown into sub-features is needed.
 
 ## Workflow Position
 
 ```
-/feature → /tdd → /breakdown → /engineer (per sub) → /test-design → /coder → /code-review → /qa
+/feature → /tdd → /breakdown → /engineer → /test-design → /coder → /code-review → /qa
+                       ↑
+                      HERE
+                       │
+                       ├─→ IF breakdown needed: → /engineer (per sub)
+                       │
+                       └─→ IF small enough: → /test-design (skip /engineer)
 ```
 
 ## Process
 
-1. **Read the TDD** - `./docs/features/<NNN>-<feature-name>.tdd.md`
-2. **Identify natural boundaries** - Where can we slice?
-3. **Interview the user** - Priorities, constraints, team considerations
-4. **Define sub-features** - With dependencies and sequence
-5. **Save file** - `./docs/features/<NNN>-<feature-name>.breakdown.md`
+1. **Read the feature spec** - `./docs/features/<NNN>-<feature-name>.feature.md`
+2. **Read the TDD** - `./docs/features/<NNN>-<feature-name>.tdd.md`
+3. **Analyze complexity** - Apply decision criteria below
+4. **Decide: breakdown needed?**
+   - **YES** → Create breakdown file, proceed to `/engineer`
+   - **NO** → Skip to `/test-design` directly
+5. **If breakdown needed** - Save file `./docs/features/<NNN>-<feature-name>.breakdown.md`
+
+## Decision Criteria: Is Breakdown Needed?
+
+### Breakdown IS Needed When:
+- Feature touches 3+ distinct modules
+- Implementation would take > 3 days
+- Multiple independent user stories exist
+- Clear natural boundaries are visible
+- Risk of merge conflicts if done as single unit
+- Different team members could work on parts in parallel
+
+### Breakdown NOT Needed When:
+- Feature is contained within 1-2 modules
+- Implementation would take ≤ 3 days
+- Code changes are tightly coupled (can't be separated)
+- Breaking down would create artificial boundaries
+- All changes must be deployed together anyway
+
+### Key Question
+
+> "Can parts of this feature be implemented, tested, and potentially deployed independently without breaking the codebase?"
+
+If YES → Breakdown needed
+If NO → Skip to /test-design
+
+## Breakdown Principles
+
+When breakdown IS needed:
+
+### Feature Perspective
+- Each sub-feature delivers identifiable user value
+- Sub-features can be understood in isolation
+- Clear acceptance criteria per sub-feature
+
+### Code Perspective
+- Parts that should be written in a single ticket stay together
+- Don't break natural code boundaries
+- Each sub-feature can have its own PR
+- No circular dependencies between sub-features
+
+### Autonomy Criteria
+
+Each sub-feature MUST be:
+- **Independently testable** - Tests can run for just this slice
+- **Independently deployable** - Can ship without others (maybe feature-flagged)
+- **Coherent unit** - Makes sense as a standalone piece of work
+- **Right-sized** - 1-3 days of work for one developer
 
 ## Interview Tool
 
-Use Claude Code's built-in interview tool to clarify priorities and constraints.
+Use to clarify breakdown decisions:
 
-Example:
 ```
-Which aspect should we implement first?
-1. Core data model and basic CRUD
-2. Validation and error handling
-3. External integrations
+This feature has 3 distinct parts. How should we approach?
+1. Break into 3 sub-features (parallel work possible)
+2. Keep as single feature (tightly coupled)
+3. Break into 2 sub-features (specify grouping)
 4. Other (specify)
 ```
 
 ## File Naming
 
-Breakdown file uses same number as parent:
+If breakdown needed:
 ```
 ./docs/features/001-user-authentication.feature.md   ← Feature spec
 ./docs/features/001-user-authentication.tdd.md       ← Technical design
@@ -48,96 +102,60 @@ Sub-features get letter suffixes (created during /engineer):
 ```
 ./docs/features/001a-password-validation.tdd.md
 ./docs/features/001b-session-management.tdd.md
-./docs/features/001c-password-reset.tdd.md
 ```
 
-## Slicing Strategies
-
-### By Layer
-- Data model first, then services, then API
-- Good for: foundational features
-
-### By User Story
-- One story = one sub-feature
-- Good for: user-facing features
-
-### By Integration
-- Core logic first, external integrations later
-- Good for: features with multiple external dependencies
-
-### By Risk
-- Risky/uncertain parts first
-- Good for: features with unknowns
-
-## Interview Questions
-
-Ask the user about:
-
-### Priorities
-- What must ship first?
-- What can wait for v1.1?
-- Any hard deadlines for specific parts?
-
-### Dependencies
-- External systems availability?
-- Team dependencies (design, other features)?
-- Data migration needs?
-
-### Constraints
-- Team size working on this?
-- Parallel vs sequential implementation?
-- Any parts that MUST be released together?
-
-### Risk
-- Which parts are riskiest or most uncertain?
-- Should we tackle unknowns first or last?
-
-## Sub-Feature Criteria
-
-Each sub-feature MUST be:
-
-- **Independently testable** - Can write and run tests for just this slice
-- **Independently deployable** - Can ship without other sub-features (maybe feature-flagged)
-- **Vertically sliced** - Delivers user value, not just "backend for X"
-- **Right-sized** - 1-3 days of work for one developer
-
-## Critical Rules
-
-- **No orphan sub-features** - Every sub-feature must connect to parent TDD
-- **Clear dependencies** - If B needs A, document it
-- **Minimize coupling** - Sub-features should be as independent as possible
-- **Preserve architecture** - Don't break module boundaries established in TDD
-
-## Output
+## Output Format (When Breakdown Needed)
 
 Save to `./docs/features/<NNN>-<feature-name>.breakdown.md` using template in `assets/TEMPLATE.md`.
 
-## Content Rules
-
 **Include:**
+- Decision rationale (why breakdown was needed)
 - Sub-feature list with IDs (a, b, c...)
 - Scope for each sub-feature
 - Dependencies between sub-features
 - Suggested implementation order
-- Parent TDD reference for each sub-feature
 
-**Exclude:**
-- Technical design (that's /engineer)
-- Test cases (that's /test-design)
-- Implementation code
+## Critical Rules
 
-## Next Step
+- **Read BOTH files** - Feature spec AND TDD before deciding
+- **Don't force breakdown** - If it's small enough, skip to /test-design
+- **Don't avoid breakdown** - If it's too big, split it properly
+- **Code coherence** - Don't break apart code that belongs together
+- **Document the decision** - Whether YES or NO, explain why
 
-After breakdown is approved:
+## Next Steps
 
-1. **Clear context** - Start fresh for each sub-feature
-2. **Run `/engineer`** - For the first sub-feature in sequence
-3. **Repeat** - `/engineer` → `/test-design` → `/coder` for each sub-feature
+### If Breakdown Needed:
+
+After saving breakdown file, prompt the user using AskUserQuestion:
 
 ```
-Sub-feature 001a → /engineer → /test-design → /coder → /code-review → /qa
-Sub-feature 001b → /engineer → /test-design → /coder → /code-review → /qa
-...
+Breakdown complete. How would you like to proceed?
+1. Clear memory and continue with /engineer for first sub-feature (Recommended)
+2. Continue with /engineer
+3. Other
 ```
 
-Context can be cleared between sub-features since each reads from files.
+- If **Option 1**: Inform user to clear context, then invoke /engineer
+- If **Option 2**: Proceed directly to /engineer
+- If **Option 3**: Follow user's instructions
+
+Then repeat: `/engineer` → `/test-design` → `/coder` → `/code-review` for each sub-feature.
+After ALL sub-features complete → `/qa`
+
+### If No Breakdown Needed:
+
+Prompt the user using AskUserQuestion:
+
+```
+No breakdown needed. How would you like to proceed?
+1. Clear memory and continue with /test-design (Recommended)
+2. Continue with /test-design
+3. Other
+```
+
+- If **Option 1**: Inform user to clear context, then invoke /test-design
+- If **Option 2**: Proceed directly to /test-design
+- If **Option 3**: Follow user's instructions
+
+Continue: `/test-design` → `/coder` → `/code-review` → `/qa`
